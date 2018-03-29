@@ -74,7 +74,7 @@
 		<li style="background:#f0f8ff;">
 			<img src="/skin/images/a17.png" alt="" class="fr" />
 			<div class="group_list_text group_list_text04 f16">
-				<span class="group_list_tit04">精品推荐 </span><br />
+				<span class="group_list_tit04">精品推荐lishegnwei </span><br />
 				懂你 懂生活<br />
 				<a href="#" class="group_list_go fl f12">GO</a>
 			</div>
