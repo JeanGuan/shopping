@@ -50,7 +50,7 @@
 		<li style="background:#ffe6ee;">
 			<img src="/skin/images/a14.png" alt="" class="fr" />
 			<div class="group_list_text group_list_text01 f16">
-				<span class="group_list_tit01">今日团购11</span><br />
+				<span class="group_list_tit01">今日团购</span><br />
 				低价成团  限时限量<br />
 				<a href="#" class="group_list_go fl f12">GO</a>
 			</div>
@@ -58,7 +58,7 @@
 		<li style="background:#e9fbf0;">
 			<img src="/skin/images/a15.png" alt="" class="fr" />
 			<div class="group_list_text group_list_text02 f16">
-				<span class="group_list_tit02">限时秒杀222</span><br />
+				<span class="group_list_tit02">限时秒杀</span><br />
 				限时秒杀 抢不停歇<br />
 				<a href="#" class="group_list_go fl f12">GO</a>
 			</div>
@@ -74,7 +74,7 @@
 		<li style="background:#f0f8ff;">
 			<img src="/skin/images/a17.png" alt="" class="fr" />
 			<div class="group_list_text group_list_text04 f16">
-				<span class="group_list_tit04">精品推荐lishegnwei </span><br />
+				<span class="group_list_tit04">精品推荐</span><br />
 				懂你 懂生活<br />
 				<a href="#" class="group_list_go fl f12">GO</a>
 			</div>

@@ -17,11 +17,6 @@ class Goods extends Model
     protected $guarded = [];  //排除敏感字段
     static $pid='';
 
-    //关联评论模型
-    public function comment() {
-        return $this->hasMany('\App\Http\Model\Comment','gid');
-    }
-
     //商品查询
     public function sel(){
         $goods = Goods::orderby('id','desc')->paginate(15);

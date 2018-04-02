@@ -83,28 +83,55 @@
 						<option value="">黑龙江哈尔滨道里区</option>
 					</select>
 					<span class="fl red">查看运费</span><br />
-					<span class="fl">该商品由1 <span class="red">完美生活自营旗舰店</span> 发货，并提供售后服务</span>
+					<span class="fl">该商品由<span class="red">完美生活自营旗舰店</span> 发货，并提供售后服务</span>
 				</div>
 				<div class="cl"></div>
 			</li>
+
+			{{--<div class="yListr">
+
+				<ul>
+					@foreach($attr as $v )
+					<li><span style="float:left;">{{$v->title}}</span>
+						<div style="width:636px;float:left;overflow: hidden;">
+							@foreach($v[] )
+							{volist name="voa.attrs" id="voas"}
+
+							<em {eq name="key" value="0"}class="yListrclickem"{/eq}>{$voas}<i></i>
+							<input type="radio" style="display: none" name="goods_spec{$k}[]" value="{$voas}" {eq name="key" value="0"}checked="checked"{/eq}>
+							</em>
+							{/volist}
+								@endforeach
+						</div>
+					</li>
+					{/volist}
+					</li>
+
+				</ul>
+				{volist name="vo.goodsattr" id="vog"}
+				<input type="hidden" class="form-control" name="{$vog.attrs}" homenum="{$vog.homenum}"  value="{$vog.price}">
+				@endforeach
+				<br><br>
+			</div>--}}
+
+			@foreach($attr as $v )
 			<li>
-				<span class="fl detail_con_name">类型</span>
+				<span class="fl detail_con_name">{{$v['title']}}</span>
+
 				<div class="fr detail_con_r detail_con_lx f12">
-					<a href="#" class="detail_con_lx_on">真皮软包1.8米热销款</a>
-					<a href="#">真皮软包1.5米公主款</a>
-					<a href="#">真皮软包1.8米热销款</a>
-					<a href="#">真皮软包1.8米热销款</a>
+					@foreach($v['attrs'] as $attr)
+					<a href="#"  class="detail_con_lx_on" onclick="Clicked()">{{$attr}}</a>
+						<input type="radio" style="display: none" id="{{$attr}}" name="{{$attr}}" value="{{$attr}}" >
+
+					@endforeach
 				</div>
 				<div class="cl"></div>
 			</li>
-			<li>
-				<span class="fl detail_con_name">规格</span>
-				<div class="fr detail_con_r f12">
-					<span>内径：1815*2010mm；</span>
-					<span>内径：1815*2010mm；</span>
-				</div>
-				<div class="cl"></div>
-			</li>
+			@endforeach
+			@foreach($goodattr as $vog)
+			<input type="hidden" class="form-control" {{--name="{{$vog['attrs']}}"--}} homenum="{{$vog['homenum']}}"  value="{{$vog['price']}}">
+			@endforeach
+
 			<li>
 				<span class="fl detail_con_name">数量</span>
 				<div class="fr detail_con_r f12">
@@ -412,6 +439,37 @@
 		<div class="cl"></div>
 	</ul>
 </div>
+<script>
+
+
+    $(function() {
+        //cost
+
+        $("#pricespan").text($("#cost").val());
+        $(".yListr ul li em").click(function() {
+            $(this).addClass("yListrclickem").siblings().removeClass("yListrclickem");
+            $(this).siblings().children('input').prop('checked',false);
+            $(this).children('input').prop('checked',true);
+            price();
+        });
+        price();
+    })
+    function price(){
+        var list=new Array();
+        $("input[type='radio'][name^='goods_spec']:checked").each(function(){
+            list.push($(this).val());
+        });
+        var name = list.join(",");
+        $("#ge").val(name);
+        var price = $("input[name='"+name+"']").val();
+        var homenum = $("input[name='"+name+"']").attr('homenum');
+
+        $("#pricespan").text(price);
+        //  $("#homenumspan").text(homenum);
+
+    }
+</script>
+
 <!--  -->
 <script type="text/javascript">
     $(document).ready(function(){

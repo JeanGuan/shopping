@@ -23,16 +23,14 @@ class GoodsController extends CommonController
         $types = $this->Tree();
 
         //商品详细信息
-        $good = $this->good($id);
+        $good = Goods::where('id',18)->first();
+        $attr = unserialize($good['attr']);
+        $goodattr = unserialize($good['goodsattr']);
         $pic = unserialize($good['picarr']);               //图片路径
+
         //加载页面
-        return view('home.goods',compact('types','good','pic'));
+        return view('home.goods',compact('types','good','pic','goodattr','attr'));
     }
 
-    //商品详细信息
-    public function good($id){
-        $good = Goods::where('id',$id)->first();
-        return $good;
-    }
 
 }

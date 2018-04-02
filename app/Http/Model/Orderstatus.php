@@ -8,11 +8,18 @@ use Illuminate\Database\Eloquent\Model;
 class Orderstatus extends Model
 {
 
-    protected $table = 'orderstatus';
+    protected $table = 'orderstatu';
     protected $primaryKey = 'id';
     public    $timestamps = false;
     public    $arr_type=[];
 
     protected $guarded = [];  //排除敏感字段
+
+    //订单状态查询
+    public function sel(){
+        $orderStatus = Orderstatus::orderBy('id','asc')->get();
+        return $orderStatus;
+    }
+
 
 }
