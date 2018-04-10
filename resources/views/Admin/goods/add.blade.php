@@ -6,6 +6,8 @@
 <!-- Custom Css -->
 <link rel="stylesheet" href="/assets/css/main.css">
 <link rel="stylesheet" href="/assets/css/color_skins.css">
+
+
 <!-- 图片上传css -->
 <link href="{{asset('skin/Fileinput/css/fileinput.css')}}" rel="stylesheet">
 <script src="{{asset('skin/Fileinput/js/jquery-1.11.1.min.js')}}"></script>
@@ -86,7 +88,7 @@
                                 </div>
                                 <div class="col-lg-2 col-md-10 col-sm-8">
                                     <div class="form-group">
-                                        <input type="number"  class="form-control" name="oldprice" value="0" >
+                                        <input type="number"  class="form-control" name="oldprice" value="" >
                                     </div>
                                 </div>
                             </div>
@@ -97,7 +99,7 @@
                                 </div>
                                 <div class="col-lg-2 col-md-10 col-sm-8">
                                     <div class="form-group">
-                                        <input type="text"  class="form-control" name="price" value="0" >
+                                        <input type="number"  class="form-control" name="price" value="" >
                                     </div>
                                 </div>
                             </div>
@@ -213,6 +215,18 @@
                                     </div>
                                 </div>
                             </div>
+                            <!--商品参数 -->
+                            <div class="row clearfix">
+                                <div class="col-lg-1 col-md-2 col-sm-4 form-control-label">
+                                    <label for="status">商品参数</label>
+                                </div>
+                                <div class="col-lg-7 col-md-10 col-sm-8">
+                                    <div class="form-group">
+                                    <textarea id="ckeditor" name="parameter"> </textarea>
+                                    </div>
+                                </div>
+                            </div>
+
                             <!--内容 -->
                             <div class="row clearfix">
                                 <div class="col-lg-1 col-md-2 col-sm-4 form-control-label">
@@ -227,11 +241,12 @@
                                             //实例化编辑器
                                             var ue = UE.getEditor('editor');
                                         </script>
-                                        <script id="editor" name="content" type="text/plain" style="width: 800px;height: 300px;"  ></script>
+                                        <script id="editor" name="content" type="text/plain"  style="width: 900px;height: 300px;" ></script>
 
-                                        </div>
-                                        </div>
-                                        </div>
+                                    </div>
+                                 </div>
+                             </div>
+
                             <button class="btn btn-raised btn-primary btn-round waves-effect" type="submit">提交</button>
                         </form>
 
@@ -479,7 +494,7 @@
     function addinput(param){
         var val = $('#attrs'+param+'_add').val();
         if(val!=''){
-            $('#attrs'+param+'_area').append('<input type="checkbox" name="attrs'+param+'[]" onchange="descates();" value="'+val+'">'+val);
+            $('#attrs'+param+'_area').append('<p><input type="checkbox" name="attrs'+param+'[]" onchange="descates();" value="'+val+'">'+val+'</p>');
             $('#attrs'+param+'_add').val('');
         }
     }
@@ -495,6 +510,9 @@
 
 <script src="/assets/bundles/mainscripts.bundle.js"></script><!-- Custom Js -->
 <script src="/assets/js/pages/forms/form-validation.js"></script>
+
+<script src="/assets/plugins/ckeditor/ckeditor.js"></script> <!-- Ckeditor -->
+<script src="/assets/js/pages/forms/editors.js"></script>
 <!-- 图片上传 -->
 <script src="{{asset('skin/Fileinput/js/fileinput.js')}}"></script>
 @endsection

@@ -325,7 +325,7 @@ button:hover,input[class*=b]:hover{ cursor:pointer;}
 .detail_r_tit .detail_r_tit_on span{color:#fff;}
 .detail_r_xq{padding:20px 30px;border:#ddd solid 1px;border-top:none;}
 .detail_r_xq li{width:300px;float:left;line-height:30px;color:#666;}
-.detail_ggcx_bor{border:#ddd solid 1px;line-height:40px;color:#666;border-bottom:none;}
+
 .detail_ggcx_bor dt{height:40px;padding:0 30px;background:#fafafa;border-bottom:#ddd solid 1px;color:#000;}
 .detail_ggcx_bor dd{padding:0 110px;border-bottom:#ddd solid 1px;}
 .detail_pj_top{border:#ddd solid 1px;padding:20px;margin-bottom:20px;}
@@ -478,4 +478,9 @@ button:hover,input[class*=b]:hover{ cursor:pointer;}
 .pic a{color:#666;}
 .pic img{margin-bottom:10px;}
 #List1,#List2{float:left;}
+
+/*规格参数 table*/
+.detail_ggcx_bor table{ width:100%; border: solid 1px #CCCCCC; line-height:40px; }
+.detail_ggcx_bor table tr th { background: #f8f8f8; padding-left: 35px;text-align: left;color: #333; }
+.detail_ggcx_bor table tr td { padding-left:100px; line-height: 28px; vertical-align: top;}
 

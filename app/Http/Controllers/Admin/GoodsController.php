@@ -48,10 +48,11 @@ class GoodsController extends CommonController
         $goods = (new Goods())->edit($id);
         $pic = unserialize($goods['picarr']);               //图片路径
         $attr = unserialize($goods['attr']);                //商品属性名称
-
+        $goodattr = unserialize($goods['goodsattr']);
+        $goodattr  = json_encode($goodattr);               //商品属性价格
         $types = (new  Types())->tree();
         $brand = (new Goods())->brand();
-        return view('admin.goods.edit',compact('goods','types','brand','pic','attr'));
+        return view('admin.goods.edit',compact('goods','types','brand','pic','attr','goodattr'));
     }
 
     //商品更新

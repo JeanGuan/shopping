@@ -31,15 +31,22 @@ class LoginController extends CommonController
             }
 
             //存储session
-            session(['user'=>$User]);
+            session(['Homeuserinfo.id'=>$User->id]);
+            session(['Homeuserinfo.username'=>$User->username]);
             //跳转个人中心
-            return redirect('/person');
+            return redirect('/');
 
         }else{
             //加载登录页面
             return view('home.login');
         }
 
+    }
+
+    //用户注销登录
+    public function logout(Request $request){
+        $request->session()->flush();
+        return redirect('/login');
     }
 
 

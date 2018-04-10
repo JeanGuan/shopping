@@ -155,9 +155,6 @@
                                                 </div>
                                             </div>
                                         </div>
-
-
-
                                     @endforeach
                                 @endif
                             </div>
@@ -265,6 +262,17 @@
                                     </div>
                                 </div>
                             </div>
+                            <!--商品参数 -->
+                            <div class="row clearfix">
+                                <div class="col-lg-1 col-md-2 col-sm-4 form-control-label">
+                                    <label for="status">商品参数</label>
+                                </div>
+                                <div class="col-lg-7 col-md-10 col-sm-8">
+                                    <div class="form-group">
+                                        <textarea id="ckeditor" name="parameter">{{$goods->parameter}} </textarea>
+                                    </div>
+                                </div>
+                            </div>
                             <!--内容 -->
                             <div class="row clearfix">
                                 <div class="col-lg-1 col-md-2 col-sm-4 form-control-label">
@@ -279,7 +287,7 @@
                                             //实例化编辑器
                                             var ue = UE.getEditor('editor');
                                         </script>
-                                        <script id="editor" name="content" type="text/plain"  style="width: 800px;height: 300px;" >{!! $goods->content !!}</script>
+                                        <script id="editor" name="content" type="text/plain"  {{--style="width: 900px;height: 300px;"--}} >{!! $goods->content !!}</script>
 
                                     </div>
                                 </div>
@@ -399,7 +407,8 @@
     });
     //笛卡尔积处理
     function descates(){
-        var spec_goods_price =  '';//控制器传过来
+        var spec_goods_price_json = '<?php echo $goodattr ?>';  //控制器传过来
+        var spec_goods_price = JSON.parse(spec_goods_price_json);
 
         var list=new Array();
         $("input[type='checkbox'][name^='attrs']:checked").each(function(){
@@ -407,6 +416,7 @@
                 list.push($(this).attr('name'));
             }
         });
+
         var list2=new Array();
         list.forEach(function(val,key){
             list2[key] = new Array();
@@ -547,6 +557,8 @@
 <script src="/assets/plugins/jquery-steps/jquery.steps.js"></script> <!-- JQuery Steps Plugin Js -->
 <script src="/assets/bundles/mainscripts.bundle.js"></script><!-- Custom Js -->
 <script src="/assets/js/pages/forms/form-validation.js"></script>
+<script src="/assets/plugins/ckeditor/ckeditor.js"></script> <!-- Ckeditor -->
+<script src="/assets/js/pages/forms/editors.js"></script>
 <!-- 图片上传 -->
 <script src="{{asset('skin/Fileinput/js/fileinput.js')}}"></script>
 @endsection

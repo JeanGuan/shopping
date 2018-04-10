@@ -205,8 +205,9 @@
             </div>
         </li>
         <li class="float-right">
-            <a href="javascript:void(0);" class="fullscreen hidden-sm-down" data-provide="fullscreen" data-close="true"><i class="zmdi zmdi-fullscreen"></i></a>
-            <a href="{{url('admin/logout')}}" class="mega-menu" data-close="true"><i class="zmdi zmdi-power"></i></a>
+            <a href="{{url('admin/flush')}}" title="清除缓存" data-close="true"><i class="zmdi zmdi-refresh zmdi-hc-fw zmdi-hc-spin"></i></a>
+            <a href="javascript:void(0);" title="全屏" class="fullscreen hidden-sm-down" data-provide="fullscreen" data-close="true"><i class="zmdi zmdi-fullscreen"></i></a>
+            <a href="{{url('admin/logout')}}" title="注销登录" class="mega-menu" data-close="true"><i class="zmdi zmdi-power"></i></a>
             <a href="javascript:void(0);" class="js-right-sidebar" data-close="true"><i class="zmdi zmdi-settings zmdi-hc-spin"></i></a>
         </li>
     </ul>
@@ -245,6 +246,7 @@
                     <li > <a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-assignment zmdi-hc-fw"></i><span>订单管理</span> </a>
                         <ul class="ml-menu">
                             <li> <a href="{{url('/admin/orders')}}" >订单列表</a></li>
+                            <li> <a href="{{url('/admin/orders/status')}}" >订单状态</a></li>
                         </ul>
                     </li>
                     <li> <a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-file-text zmdi-hc-fw"></i><span>文章管理</span> </a>
@@ -275,7 +277,9 @@
                     </li>
                     <li> <a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-settings zmdi-hc-fw"></i><span>系统管理</span> </a>
                         <ul class="ml-menu">
+                            <li> <a href="{{url('admin/flush')}}">清除缓存</a></li>
                             <li> <a href="{{url('admin/config')}}">系统配置</a></li>
+
                         </ul>
                     </li>
 

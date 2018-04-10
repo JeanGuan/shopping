@@ -16,7 +16,7 @@
 <!--header end-->
 
 <!--购物车客服 start-->
-@include('home.public.car')
+@include('Home.public.kf')
 <!--购物车客服 end-->
 
 <!--main start-->

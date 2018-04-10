@@ -52,5 +52,4 @@ class Orders extends Model
         $re = Orders::where('code',$code)->update($input);
         return $re;
     }
-
 }

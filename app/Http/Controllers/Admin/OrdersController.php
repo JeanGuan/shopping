@@ -10,7 +10,9 @@ namespace App\Http\Controllers\Admin;
 
 //订单控制器
 use App\Http\Model\Orders;
+use App\Http\Model\Orderstatu;
 use App\Http\Model\Orderstatus;
+use App\Http\Model\Status;
 use Illuminate\Http\Request;
 
 class OrdersController extends  CommonController
@@ -37,7 +39,7 @@ class OrdersController extends  CommonController
         $orders =(new Orders())->orderStatusEdit($sid);
         //查询所有订单状态
         $ordersStatus = (new Orderstatus())->sel();
-        return view('admin.orders.status',compact('orders','ordersStatus'));
+        return view('admin.orders.edit',compact('orders','ordersStatus'));
     }
 
     //订单状态更新
@@ -54,6 +56,13 @@ class OrdersController extends  CommonController
            }
            return $data;
         }
+    }
+
+    //订单状态列表
+    public function statusList(){
+        $status = (new Orderstatu())->orderStatusList();
+
+        return view('admin.orders.status',compact('status'));
     }
 
 

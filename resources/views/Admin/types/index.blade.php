@@ -79,7 +79,9 @@
         $.post('types/changeOrder',{'_token':'{{csrf_token()}}','id':id,'sort':sort},function (data) {
             if (data.states == 1){
                 layer.msg(data.msg, {icon: 4});
-                $("#del"+id).remove();
+                setTimeout(function(){
+                    window.location.reload();//2秒后页面刷新
+                },1000);
             }else{
                 setTimeout(function(){
                     window.location.reload();//2秒后页面刷新
@@ -101,7 +103,9 @@
             }, function (data) {
                 if (data.status == 1) {
                     layer.msg(data.msg, {icon: 6});
-                    $("#del"+id).remove();
+                    setTimeout(function(){
+                        window.location.reload();//2秒后页面刷新
+                    },1000);
                 } else {
                     layer.msg(data.msg, {icon: 5});
                 }

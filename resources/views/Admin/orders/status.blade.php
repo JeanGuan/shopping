@@ -1,80 +1,83 @@
 ﻿@extends('admin.public.admin')
 @section('head')
+<!-- Favicon-->
 <link rel="stylesheet" href="/assets/plugins/bootstrap/css/bootstrap.min.css">
-<!-- Bootstrap Select Css -->
-<link rel="stylesheet" href="/assets/plugins/bootstrap-select/css/bootstrap-select.css" />
+<link rel="stylesheet" href="/assets/plugins/footable-bootstrap/css/footable.bootstrap.min.css">
+<link rel="stylesheet" href="/assets/plugins/footable-bootstrap/css/footable.standalone.min.css">
 <!-- Custom Css -->
 <link rel="stylesheet" href="/assets/css/main.css">
 <link rel="stylesheet" href="/assets/css/color_skins.css">
 @endsection
+
 @section('main')
 <section class="content">
     <div class="block-header">
         <div class="row">
             <div class="col-lg-7 col-md-6 col-sm-12">
-                <h2>订单状态修改</h2>
+                <h2>订单状态列表</h2>
             </div>
             <div class="col-lg-5 col-md-6 col-sm-12">
                 <ul class="breadcrumb float-md-right">
-                    <li class="breadcrumb-item"><a href="{{url('/admin')}}"><i class="zmdi zmdi-home"></i>系统主页</a></li>
-                    <li class="breadcrumb-item"><a href="{{url('/admin/orders')}}">订单列表</a></li>
-                    <li class="breadcrumb-item active">订单状态修改</li>
+                    <li class="breadcrumb-item"><a href="{{url('/admin')}}"><i class="zmdi zmdi-home"></i> 系统主页</a></li>
+                    <li class="breadcrumb-item active">订单状态列表</li>
                 </ul>
             </div>
         </div>
     </div>
     <div class="container-fluid">
-        <!-- Basic Validation -->
+        <!-- Basic Table -->
         <div class="row clearfix">
             <div class="col-lg-12 col-md-12 col-sm-12">
                 <div class="card">
                     <div class="header">
-                        <h2><strong>Order</strong> Status</h2>
+                        <h2><strong>OrderStatus</strong> List</h2>
                     </div>
-                    <div class="body" >
-                        <form id="form_validation" method="POST" action="{{url('admin/orders/status/update/'.$orders->id)}}">
-                            {{csrf_field()}}
-                            <!--订单号 -->
-                            <div class="row clearfix">
-                                <div class="col-lg-1 col-md-2 col-sm-4 form-control-label">
-                                    <label for="code">订单号</label>
-                                </div>
-                                <div class="col-lg-2 col-md-10 col-sm-8">
-                                    <div class="form-group">
-                                        <input type="text"  class="form-control" name="code" maxlength="16" minlength="4" value="{{$orders->code}}" readonly>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--订单状态 -->
-                            <div class="row clearfix">
-                                <div class="col-lg-1 col-md-2 col-sm-4 form-control-label">
-                                    <label for="sid">订单状态</label>
-                                </div>
-                                <div class="col-lg-2 col-md-10 col-sm-8">
-                                    <select class="form-control show-tick" name="sid">
-                                        @foreach($ordersStatus as $v)
-                                        <option value="{{$v->id}}" @if($v->id == $orders->sid) selected @endif>{{$v->name}}</option>
-                                       @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            <button class="btn btn-raised btn-primary btn-round waves-effect" type="submit">提交</button>
-                        </form>
+                    <div class="body table-responsive">
 
+                       <table class="table table-striped m-b-0">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>订单状态名称</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                                <tbody>
+                                @foreach($status as $v)
+
+                                    <td>{{$v->id}}</td>
+                                    <td>
+                                        <div class="col-lg-2 col-md-10 col-sm-8">
+                                        <input class="form-control" type="text" value="{{$v->name}}">
+                                        </div>
+                                    </td>
+                                    <style>.footable .yc{display: none}</style>
+                                    <td> <button id="" type="button" class="yc btn bg-purple waves-effect " >确认修改</button></td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- #END# Basic Validation --> 
-
     </div>
 </section>
-<!-- Jquery Core Js -->
-<script src="/assets/bundles/libscripts.bundle.js"></script> <!-- Lib Scripts Plugin Js -->
-<script src="/assets/bundles/vendorscripts.bundle.js"></script> <!-- Lib Scripts Plugin Js -->
-<script src="/assets/plugins/jquery-validation/jquery.validate.js"></script> <!-- Jquery Validation Plugin Css -->
-<script src="/assets/plugins/jquery-steps/jquery.steps.js"></script> <!-- JQuery Steps Plugin Js -->
-<script src="/assets/bundles/mainscripts.bundle.js"></script><!-- Custom Js -->
-<script src="/assets/js/pages/forms/form-validation.js"></script>
-@endsection
 
+<script>
+        $("input:text").focus(function() {
+            $('.yc').hide();
+            $(this).next("button").show();
+
+        });
+
+</script>
+<!-- Jquery Core Js --> 
+<script src="/assets/bundles/libscripts.bundle.js"></script> <!-- Lib Scripts Plugin Js --> 
+<script src="/assets/bundles/vendorscripts.bundle.js"></script> <!-- Lib Scripts Plugin Js -->
+
+<script src="/assets/bundles/footable.bundle.js"></script> <!-- Lib Scripts Plugin Js -->
+
+<script src="/assets/bundles/mainscripts.bundle.js"></script><!-- Custom Js -->
+<script src="/assets/js/pages/tables/footable.js"></script><!-- Custom Js -->
+@endsection

@@ -51,8 +51,8 @@
                                 </tr>
                             </thead>
                                 <tbody>
+                                @foreach($orders as $v)
                                 <tr>
-                                    @foreach($orders as $v)
                                     <td><span class="badge badge-warning">{{$v->code}}</span></td>
                                     <td>{{$v->username}}</td>
                                     <td>{{date('Y-m-d H:i:s',$v->time)}}</td>

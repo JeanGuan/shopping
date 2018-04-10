@@ -18,5 +18,24 @@ class IndexController extends CommonController
 
     }
 
+    //清除缓存
+    public function flush(){
+        $this->delCache('../storage/framework/cache');
+        $this->delCache('../storage/framework/views');
+        return redirect('admin');
+    }
+
+    //缓存删除方法
+    public function delCache($path){
+        //读取路径文件
+        $arr = scandir($path);
+        //遍历并删除文件
+        foreach ($arr as $v){
+            if ($v != '.' && $v != '..'){
+                unlink($path.'/'.$v);
+            }
+        }
+    }
+
 
 }

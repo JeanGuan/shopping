@@ -119,7 +119,6 @@ class Goods extends Model
     //商品更新
     public function upd($id){
         $input = Input::except('_token','_method','show');
-
         //商品组图数据处理
         if (isset($input['picarr'])){
             if(is_array($input['picarr']))

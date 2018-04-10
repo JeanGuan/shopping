@@ -16,7 +16,7 @@ class adminLogin
     public function handle($request, Closure $next)
     {
         //判断后台是否登录
-        if (session('jeanuserinfo')){
+        if (session('Adminuserinfo')){
             return $next($request);
         }else{
             //跳转

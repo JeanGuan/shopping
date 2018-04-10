@@ -36,9 +36,10 @@ class LoginController extends CommonController
                     //更新管理员数据
                     Admins::where('id',$admins->id)->update($arr);
                     //存储session
-                    session(['jeanuserinfo.name'=>$admins->name]);
-                    session(['jeanuserinfo.id'=>$admins->id]);
-                    return  redirect('admin/');
+                    session(['Adminuserinfo.name'=>$admins->name]);
+                    session(['Adminuserinfo.id'=>$admins->id]);
+                    //跳转后台主页
+                    return  redirect('admin');
 
                 }else{
                     return back()->with('error','密码输入不正确！');
@@ -46,12 +47,6 @@ class LoginController extends CommonController
             }else{
                 return back()->with('error','用户名不存在！');
             }
-
-            //存储session
-            session(['admins'=>$admins]);
-            //跳转后台主页
-            return redirect('admin');
-
         }else{
             return view('admin.login');
         }

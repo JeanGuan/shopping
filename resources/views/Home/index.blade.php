@@ -41,7 +41,7 @@
 <!--楼层导航 end-->
 
 <!--购物车客服 start-->
-@include('home.public.car')
+@include('Home.public.kf')
 <!--购物车客服 end-->
 
 <!--今日团购-->

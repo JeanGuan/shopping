@@ -20,7 +20,7 @@
 <!--header end-->
 
 <!--购物车客服 start-->
-@include('home.public.car')
+@include('Home.public.kf')
 <!--购物车客服 end-->
 
 <!--main start-->
@@ -54,25 +54,20 @@
 		</div>
 	</div>
 	<div class="fl detail_con">
-		<div class="detail_tit f16"><a href="">[韩菲尔]</a> {{$good->title}}</div>
+		<div class="detail_tit f16"> {{$good->title}}</div>
 		<div class="f12 detail_tit_text">{{$good->description}}</div>
 		<div class="detail_con_bg">
 			<div class="fl detail_con_price">
-			@if($good->price != 0)
 				<span class="fl detail_con_cxj">促销价</span>
-				<span class="fl red02 f24">￥{{$good->price}}</span>
+				<span class="fl red02 f24">￥<span id="pricespan"></span></span>
 				<span class="fl">本站价：</span>
-				<s class="fl grey9">¥{{$good->oldprice}}</s><br />
+				<s class="fl grey9">¥<span id="oldpricespan"></span></s><br />
 				<span class="fl detail_con_cxj">促销</span>
 				<span class="fl detail_con_zj">下单立减</span>
-				<span class="fl">{{$good->oldprice - $good->price}}元</span>
-			@else
-				<span class="fl detail_con_cxj">本站价</span>
-				<span class="fl red02 f24">￥{{$good->oldprice}}</span>
-			@endif
+				<span class="fl"><span id="discountprice"></span>元</span>
 				<div class="cl"></div>
 			</div>
-			<div class="fr detail_con_ys">已售 <span class="red02">{{$good->sold}}</span><br />评价 {{$good->comment}}</div>
+			<div class="fr detail_con_ys">已售 <span class="red02">{{$good->sold}}</span><br />评价 {{$commentTot}}</div>
 			<div class="cl"></div>
 		</div>
 		<ul class="detail_con_list">
@@ -87,68 +82,40 @@
 				</div>
 				<div class="cl"></div>
 			</li>
-
-			{{--<div class="yListr">
-
-				<ul>
-					@foreach($attr as $v )
-					<li><span style="float:left;">{{$v->title}}</span>
-						<div style="width:636px;float:left;overflow: hidden;">
-							@foreach($v[] )
-							{volist name="voa.attrs" id="voas"}
-
-							<em {eq name="key" value="0"}class="yListrclickem"{/eq}>{$voas}<i></i>
-							<input type="radio" style="display: none" name="goods_spec{$k}[]" value="{$voas}" {eq name="key" value="0"}checked="checked"{/eq}>
-							</em>
-							{/volist}
-								@endforeach
-						</div>
-					</li>
-					{/volist}
-					</li>
-
-				</ul>
-				{volist name="vo.goodsattr" id="vog"}
-				<input type="hidden" class="form-control" name="{$vog.attrs}" homenum="{$vog.homenum}"  value="{$vog.price}">
-				@endforeach
-				<br><br>
-			</div>--}}
-
-			@foreach($attr as $v )
-			<li>
+			@if($attr != '')
+			@foreach( $attr as $k=>$v)
+			<li class="theme-options">
 				<span class="fl detail_con_name">{{$v['title']}}</span>
-
 				<div class="fr detail_con_r detail_con_lx f12">
-					@foreach($v['attrs'] as $attr)
-					<a href="#"  class="detail_con_lx_on" onclick="Clicked()">{{$attr}}</a>
-						<input type="radio" style="display: none" id="{{$attr}}" name="{{$attr}}" value="{{$attr}}" >
-
+					@foreach($v['attrs'] as $a=>$attrs)
+					<div class="theme-options">
+						<a href="javascript:void(0);" @if( $a== 0) class="detail_con_lx_on" @endif>{{$attrs}}</a>
+						<input type="radio" style="display: none"  name="goods_spec[{{$k}}]" @if($a == 0) checked="checked" @endif value="{{$attrs}}"  >
+					</div>
 					@endforeach
 				</div>
 				<div class="cl"></div>
 			</li>
 			@endforeach
-			@foreach($goodattr as $vog)
-			<input type="hidden" class="form-control" {{--name="{{$vog['attrs']}}"--}} homenum="{{$vog['homenum']}}"  value="{{$vog['price']}}">
-			@endforeach
-
+			@endif
 			<li>
 				<span class="fl detail_con_name">数量</span>
 				<div class="fr detail_con_r f12">
 					<span class="fl detail_con_no">
-						<input type="text" class="fl detail_con_no_inp num" value="1" />
-						<span class="fl">
-							<a href="#" class="J_jia"><img src="/skin/images/d17.jpg" alt="" /></a><br />
-							<a href="#" class="J_jian"><img src="/skin/images/d18.jpg" alt="" /></a>
-						</span>
+						<input id="num" name="num" type="number" value="1" min="1" max="100"  class="fl detail_con_no_inp" onkeyup="modifyNum(this)"/>
+
 					</span>
-					<span class="fl red">库存数({{$good->num}})</span>
+					<span class="fl red">库存数(<span id="homenumspan"></span>)</span>
 				</div>
 				<div class="cl"></div>
+				<input type="hidden" name="good_id" value="{{$good->id}}" />
+				<input type="hidden" id="goods_spec_arr" />
+				<input type="hidden" id="goods_price"  />
+
 			</li>
 			<li class="detail_con_btn f16">
-				<a href="#"><img src="/skin/images/d19.png" alt="" />加入购物车</a>
-				<a href="#"><img src="/skin/images/d20.png" alt="" /> 立即购买</a>
+				<a href="javascript:;" id="AddCart"><img src="/skin/images/d19.png" alt="" />加入购物车</a>
+				<a href="javascript:;"><img src="/skin/images/d20.png" alt="" /> 立即购买</a>
 			</li>
 		</ul>		
 	</div>
@@ -160,7 +127,7 @@
 				<a class="next"><img src="/skin/images/d23.jpg" alt="" /></a>
 				<ul></ul>
 				<a class="prev"><img src="/skin/images/d24.jpg" alt="" /></a>
-				<!--<span class="pageState"></span>-->
+
 			</div>
 			<div class="bd">
 				<ul class="picList">
@@ -233,169 +200,90 @@
 			<div class="detail_r_tit">
 				<a href="javascript:;" class="detail_r_tit_on">商品详情</a>
 				<a href="javascript:;">规格参数</a>
-				<a href="javascript:;">评价<span class="red">({{$good->comment}})</span></a>
-				<a href="javascript:;">已售({{$good->sold}})</a>
-
+				<a href="javascript:;">评价<span class="red">({{$commentTot}})</span></a>
 				<a href="javascript:;">服务保障</a>				
 			</div>			
 		</div>
 		<div class="detail_r_con_box">
 			<div>
-				<div class="detail_r_xq">
-					<ul>
-						<li>商品编号：GJ-YHD-M0178-18CD</li>
-						<li>商品品牌：顾家1号垫</li>
-						<li>商品体积：0.94 m³</li>
-						<li>商品清单：1.8*2.0米床垫</li>
-						<li>产地：浙江杭州</li>
-						<div class="cl"></div>
-					</ul>
-				</div>
 				<div class="detail_r_con">
 					{!! $good->content !!}
 				</div>
 			</div>
 			<div class="detail_r_con" style="display:none;">
 				<dl class="detail_ggcx_bor">
-					{{$good->config}}
-					{{--<dt>基本信息</dt>
-						<dd>品牌：	美宜经典</dd>
-						<dd>型号：	MYJD-YH-TY-C-302-18C</dd>
-						<dd>风格：	北欧风格</dd>
-						<dd>包件：	3件</dd>					
-					<dt>产品尺寸</dt>
-						<dd>品牌：	美宜经典</dd>
-						<dd>型号：	MYJD-YH-TY-C-302-18C</dd>
-						<dd>风格：	北欧风格</dd>
-						<dd>包件：	3件</dd>					
-					<dt>产品尺寸</dt>
-						<dd>品牌：	美宜经典</dd>
-						<dd>型号：	MYJD-YH-TY-C-302-18C</dd>
-						<dd>风格：	北欧风格</dd>
-						<dd>包件：	3件</dd>		--}}
+					{!! $good->parameter !!}
 				</dl>
 			</div>
 			<div class="detail_r_con" style="display:none;">
 				<div class="detail_pj_top">
 					<div class="fl detail_pj_fen tr">
-						<b class="red02">5.0</b>分<br />
-						<img src="/skin/images/d29.png" alt="" />
-						<img src="/skin/images/d29.png" alt="" />
-						<img src="/skin/images/d29.png" alt="" />
-						<img src="/skin/images/d29.png" alt="" />
-						<img src="/skin/images/d29.png" alt="" />						
+						<b class="red02">{{round($goodTot/$commentTot*100)}}%</b>好评<br />
 					</div>
 					<div class="fr detail_pj_my">
-						<span class="fl detail_pj_my_name tr f12">满意</span>
-						<span class="fl detail_pj_my_jdt"><i style="width:100%;"></i></span>
-						<span class="fl">100%</span>
+						<span class="fl detail_pj_my_name tr f12">好评</span>
+						<span class="fl detail_pj_my_jdt"><i style="width:{{round($goodTot/$commentTot*100)}}%;"></i></span>
+						<span class="fl">{{round($goodTot/$commentTot*100)}}%</span>
 						<div class="cl"></div>
-						<span class="fl detail_pj_my_name tr f12">一般</span>
-						<span class="fl detail_pj_my_jdt"><i style="width:50%;"></i></span>
-						<span class="fl">100%</span>
+						<span class="fl detail_pj_my_name tr f12">中评</span>
+						<span class="fl detail_pj_my_jdt"><i style="width:{{round($zhongTot/$commentTot*100)}}%;"></i></span>
+						<span class="fl">{{round($zhongTot/$commentTot*100)}}%</span>
 						<div class="cl"></div>
-						<span class="fl detail_pj_my_name tr f12">不满意</span>
-						<span class="fl detail_pj_my_jdt"><i style="width:20%;"></i></span>
-						<span class="fl">100%</span>
+						<span class="fl detail_pj_my_name tr f12">差评</span>
+						<span class="fl detail_pj_my_jdt"><i style="width:{{round($chaTot/$commentTot*100)}}%;"></i></span>
+						<span class="fl">{{round($chaTot/$commentTot*100)}}%</span>
 						<div class="cl"></div>
 					</div>
 					<div class="cl"></div>
 				</div>
-				<div class="detail_pj_tit f12">
-					<a href="#" class="detail_pj_tit_on">全部评价(15)</a>
-					<a href="#">满意(15)</a>
-					<a href="#">一般(0)</a>
-					<a href="#">不满意(0)</a>
-					<a href="#"><img src="/skin/images/d30.png" alt="" />秀家(5)</a>
-				</div>
-				<ul class="detail_pj_list">
-					<li>
-						<div class="fl detail_pj_list_l tc">
-							<img src="/skin/images/d31.jpg" alt="" /><br />
-							1520461***<br />
-							白金会员 
-						</div>
-						<div class="fl detail_pj_list_m">
-							<img src="/skin/images/d29.png" alt="" />
-							<img src="/skin/images/d29.png" alt="" />
-							<img src="/skin/images/d29.png" alt="" />
-							<img src="/skin/images/d29.png" alt="" />
-							<img src="/skin/images/d29.png" alt="" />						
-							5分<br />
-							<div class="detail_pj_list_text">
-								床到了。真心不做，木质也好，感谢销售给推荐的，以后有需要还到完美生活来购买床到了。真心不做，木质也好，感谢销售给推荐的，以后有需要还到完美生活来购买床到了。真心不做，木质也好，感谢销售给推荐的，以后有需要还到完美生活来购买床到了。真心不做，木质也好，感谢销售给推荐的，以后有需要还到完美生活来购买床到了。真心不做，木质也好，感谢销售给推荐的，以后有需要还到完美生活来购买
-							</div>
-							<div class="detail_pj_list_pic">
-								<img src="/skin/images/d22.jpg" alt="" />
-								<img src="/skin/images/d22.jpg" alt="" />
-								<img src="/skin/images/d22.jpg" alt="" />
-								<img src="/skin/images/d22.jpg" alt="" />
-							</div>							
-						</div>
-						<div class="fr detail_pj_list_r grey9 f12 tr">2017-10-23 17:16:00发布</div>
-						<a href="" class="detail_pj_list_you">有用(8)</a>
-						<div class="cl"></div>
-					</li>
 
-				</ul>
+				<div class="detail_pj_tit f12" >
+					<a href="javascript:;" data-t="1"   class="detail_pj_tit_on">全部评价({{$commentTot}})</a>
+					<a href="javascript:;" data-t="2" >好评({{$goodTot}})</a>
+					<a href="javascript:;" data-t="3" >中评({{$zhongTot}})</a>
+					<a href="javascript:;" data-t="4" >差评({{$chaTot}})</a>
+					<a href="javascript:;" data-t="5" ><img src="/skin/images/d30.png" alt="" />秀家(5)</a>
+					<div id="ajax_comment_return"></div>
+				</div>
+				{{--<ul class="detail_pj_list">
+					@foreach($comment as $v)
+						<li>
+							<div class="fl detail_pj_list_l tc">
+								@if($v->portrait != '')
+									<img src="{{$v->portrait}}"  width="70" height="70" /><br />
+								@else
+									<img src="/skin/images/d31.jpg" /><br />
+								@endif
+								{{$v->username}}<br />
+								白金会员
+							</div>
+							<div class="fl detail_pj_list_m">
+								<span style="color:#ff9f00">{{str_repeat("★",$v->start)}}{{str_repeat("☆",5-$v->start)}}</span>
+								<br />
+								<div class="detail_pj_list_text">
+									{{$v->text}}
+								</div>
+								<div class="detail_pj_list_pic" >
+									@if($v->img != '')
+										<img src="/skin/images/d22.jpg" alt="" />
+									@endif
+								</div>
+							</div>
+							<div class="fr detail_pj_list_r grey9 f12 tr">{{date('Y-m-d H:i:s',$v->time)}}发布</div>
+							<div class="cl"></div>
+						</li>
+					@endforeach
+				</ul>--}}
+
 				<div class="main_page tc">
-					<a href="#">首页</a>
-					<a href="#">上一页</a>
-					<a href="#">1</a>
-					<a href="#">2</a>
-					<a href="#">3</a>
-					<a href="#">4</a>
-					<a href="#">5</a>
-					<a href="#">下一页</a>
-					<a href="#">尾页</a>
-				</div>				
-			</div>
-			<div class="detail_r_con" style="display:none;">
-				<table cellpadding="0" cellspacing="0" border="0" width="100%" class="detail_ys">
-					<tr>
-						<th width="200">会员名</th>
-						<th width="280">商品名称</th>
-						<th width="280">地址</th>
-						<th width="60">件数</th>
-						<th>成交时间</th>
-					</tr>
-					<tr>
-						<td>长春高新区体验馆客户</td>
-						<td>1.8米床 森林系 白蜡木全实木家具 双人床</td>
-						<td>三亚 南滨路口南海*************</td>
-						<td align="center">2</td>
-						<td align="center">2017年10月21日</td>
-					</tr>
-					<tr>
-						<td>长春高新区体验馆客户</td>
-						<td>1.8米床 森林系 白蜡木全实木家具 双人床</td>
-						<td>三亚 南滨路口南海*************</td>
-						<td align="center">2</td>
-						<td align="center">2017年10月21日</td>
-					</tr>
-					<tr>
-						<td>长春高新区体验馆客户</td>
-						<td>1.8米床 森林系 白蜡木全实木家具 双人床</td>
-						<td>三亚 南滨路口南海*************</td>
-						<td align="center">2</td>
-						<td align="center">2017年10月21日</td>
-					</tr>
-				</table>
+				分页
+				</div>
 			</div>
 
 			<div class="detail_r_con" style="display:none;">服务保障</div>
 		</div>
 	</div>
 	<div class="cl" style="height:50px;"></div>
-	<script>
-		$(function(){
-			$(".detail_r_tit a").click(function(){
-			$(this).addClass("detail_r_tit_on").siblings().removeClass("detail_r_tit_on"); 
-			var index=$(this).index(); 
-			$(".detail_r_con_box > div").eq(index).show().siblings().hide(); 
-			});
-		});	
-	</script>	
 </div>
 <!--main end-->
 
@@ -408,7 +296,7 @@
 		<a href="#" class="fl">卧室套装</a>
 		<a href="#" class="fl">书柜</a>
 		<a href="#" class="fl">卧室套装</a>
-		<span class="grey9">您喜欢的风格：   欧式风格</span>
+		<span class="grey9">您喜欢的风格：欧式风格</span>
 		<a href="#" class="fr guess_love_tit_huan">换一批</a>
 	</div>
 	<ul class="main_pro">
@@ -440,75 +328,123 @@
 	</ul>
 </div>
 <script>
+	//外层tab切换
+    $(function(){
+        $(".detail_r_tit a").click(function(){
 
-
+            $(this).addClass("detail_r_tit_on").siblings().removeClass("detail_r_tit_on");
+            var index=$(this).index();
+            $(".detail_r_con_box > div").eq(index).show().siblings().hide();
+        });
+    });
+</script>
+<script>
+    var commentType = 1;// 默认评论类型
     $(function() {
-        //cost
+        //获取评论
+        ajaxComment(commentType,1);
+        // 好评差评 切换
+        $('.detail_pj_tit a').click(function(){
+            $(this).addClass('detail_pj_tit_on').siblings().removeClass('detail_pj_tit_on');
+            commentType = $(this).attr('data-t'); // 评价类型   好评 中评  差评
+            ajaxComment(commentType,1);
+        })
+    });
 
-        $("#pricespan").text($("#cost").val());
-        $(".yListr ul li em").click(function() {
-            $(this).addClass("yListrclickem").siblings().removeClass("yListrclickem");
-            $(this).siblings().children('input').prop('checked',false);
-            $(this).children('input').prop('checked',true);
-            price();
+    /***用ajax分页显示评论**/
+    function ajaxComment(commentType,page){
+        $.ajax({
+            type : "POST",
+            url:"/goods/ajaxComment",
+            data : {goods_id:'{{$good->id}}',_token:'{{csrf_token()}}',commentType:commentType,p:page},
+            success: function(data){
+                $("#ajax_comment_return").html('').append(data);
+            },
+            error:function(data){
+                swal('error',JSON.stringify(data),'error');
+            }
         });
-        price();
-    })
-    function price(){
-        var list=new Array();
-        $("input[type='radio'][name^='goods_spec']:checked").each(function(){
-            list.push($(this).val());
-        });
-        var name = list.join(",");
-        $("#ge").val(name);
-        var price = $("input[name='"+name+"']").val();
-        var homenum = $("input[name='"+name+"']").attr('homenum');
-
-        $("#pricespan").text(price);
-        //  $("#homenumspan").text(homenum);
-
     }
 </script>
 
-<!--  -->
+
 <script type="text/javascript">
-    $(document).ready(function(){
-        var add,reduce,num,num_txt;
-        add=$(".J_jia");//添加数量
-        reduce=$(".J_jian");//减少数量
-        num="";//数量初始值
-        num_txt=$(".num");//接受数量的文本框
-        //var num_val=num_txt.val();//给文本框附上初始值
-
-        /*添加数量的方法*/
-        add.click(function(){
-            num = $(".num").val();
-            num++;
-            num_txt.val(num);
-            //ajax代码可以放这里传递到数据库实时改变总价
-        });
-
-        /*减少数量的方法*/
-        reduce.click(function(){
-            //如果文本框的值大于0才执行减去方法
-            num = $(".num").val();
-            if(num >0){
-                //并且当文本框的值为1的时候，减去后文本框直接清空值，不显示0
-                if(num==1)
-                {
-                    num_txt.val("1");
-                }
-                //否则就执行减减方法
-                else
-                {
-                    num--;
-                    num_txt.val(num);
-                }
-
+	//商品数量
+    function modifyNum(o){
+        if(isNaN($(o).val())){
+            $(o).val(1);
+        }
+        else{
+            if($(o).val()<1){
+                $(o).val(1);
             }
+        }
+    }
+   $(function() {
+        //切换规格
+        $(".theme-options").click(function() {
+
+            $(this).children('a').addClass("detail_con_lx_on");
+            $(this).siblings().children('a').removeClass("detail_con_lx_on");
+            $(this).siblings().children('input:radio').attr('checked',false);
+            $(this).children('input:radio').attr('checked',true);
+
+            // 更新商品价格
+            get_goods_price();
         });
+        // 更新商品价格
+        get_goods_price();
     })
+
+
+    // 更新商品价格
+   function get_goods_price(){
+        var goods_spec_arr = new Array();
+        $("input[type='radio'][name^='goods_spec']:checked").each(function(){
+            goods_spec_arr.push($(this).val());
+        });
+        var spec_key = goods_spec_arr.join("_");
+
+      	var spec_goods_price_json = '<?php echo $goodattr ?>';//控制器传过来
+
+        var spec_goods_price = JSON.parse(spec_goods_price_json);
+
+        if(spec_goods_price.hasOwnProperty(spec_key)){
+            var saleprice = spec_goods_price[spec_key]['price'];        // 找到对应规格的价格
+            var marketprice = spec_goods_price[spec_key]['oldprice'];   // 找到对应规格的价格
+            var discountprice = (marketprice - saleprice).toFixed(2);	//商品优惠价格
+			var homenum = spec_goods_price[spec_key]['homenum'];          //商品对应的库存
+            $("#pricespan").html(saleprice);
+            $("#oldpricespan").html(marketprice);
+          	$("#discountprice").html(discountprice);
+            $("#homenumspan").html(homenum);
+            $("#goods_spec_arr").val(goods_spec_arr);
+            $("#goods_price").val(saleprice);
+        }
+   }
+
+
+    //加入购物车
+    $("#AddCart").click(function () {
+        var num = $("#num").val();							//商品数量
+        var price = $("#goods_price").val();					//商品价格
+        var goods_spec_arr = $("#goods_spec_arr").val();		//商品规格
+
+        $.ajax({
+            type : "POST",
+            url:"/addCart",
+            data : {gid:'{{$good->id}}',_token:'{{csrf_token()}}',num:num,price:price,attr:goods_spec_arr},
+            success: function(data){
+                alert(data.msg);
+            },
+            error:function(data){
+                alert(data.msg);
+                //swal('error',JSON.stringify(data),'error');
+            }
+        })
+    });
 </script>
+
 <!--footer start-->
 @include('home.public.footer')
 <!--footer end-->
