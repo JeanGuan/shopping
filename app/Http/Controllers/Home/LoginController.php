@@ -23,23 +23,26 @@ class LoginController extends CommonController
             //获取数据
             $username = $request->input('username');
             $password = $request->input('password');
-
             //验证密码
-            $User = User::first();
-            if ($User->username != $username || Crypt:: decrypt($User->password) != $password){
-                return back()->with('msg','用户名或密码错误！');
+            $User = User::where('username',$username)->first();
+            if ($User != null){
+                if (Crypt:: decrypt($User->password) == $password){
+                    //存储session
+                    session(['Homeuserinfo.id'=>$User->id]);
+                    session(['Homeuserinfo.username'=>$User->username]);
+                    //跳转个人中心
+                    return redirect('/');
+                }else{
+                    return back()->with('msg','输入密码不正确！');
+                }
+            }else{
+                return back()->with('msg','用户名不存在！');
             }
-
-            //存储session
-            session(['Homeuserinfo.id'=>$User->id]);
-            session(['Homeuserinfo.username'=>$User->username]);
-            //跳转个人中心
-            return redirect('/');
-
         }else{
             //加载登录页面
             return view('home.login');
         }
+
 
     }
 

@@ -29,6 +29,7 @@ class OrdersController extends  CommonController
        $code = $request->code;
        //查询订单详情
        $deatil = (new Orders())->detail($code);
+
        return view('admin.orders.detail',compact('deatil'));
     }
 

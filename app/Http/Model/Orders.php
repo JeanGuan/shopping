@@ -27,12 +27,12 @@ class Orders extends Model
 
     //订单详情
     public function detail($code){
-        $detail = Orders::select('orders.*','user.username','goods.title','goods.picurl','addr.*','orderstatu.name')
-            ->join('user','user.id','=','orders.uid')
-            ->join('addr','addr.id','=','orders.aid')
-            ->join('goods','goods.id','=','orders.gid')
-            ->join('orderstatu','orderstatu.id','=','orders.sid')
-            ->where('code',$code)->get();
+        $detail = Orders::select('orders.*','orderstatu.name')
+            ->join('orderstatu','orders.sid','=','orderstatu.id')
+            ->where('code',$code)->first();
+
+        $detail['goodattr'] = unserialize($detail['goodattr']);
+
         return $detail;
     }
 

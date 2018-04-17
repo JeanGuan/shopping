@@ -32,6 +32,20 @@ Route::POST('/goods/ajaxComment','Home\AjaxController@ajaxComment');       //商
 
 Route::get('/cart','Home\CartController@index');                        //购物车
 Route::post('/addCart','Home\CartController@addCart');                   //加入购物车
+Route::post('/addCart/stock','Home\AjaxController@ajaxStock');           //更新商品数量
+Route::post('/addCart/delCart','Home\CartController@delCart');           //移除购物车
+
+Route::get('/order','Home\OrderController@index');                       //订单
+Route::post('/order/addOrder','Home\OrderController@addOrder');           //订单提交
+Route::get('/pay','Home\PayController@index');                            //订单支付
+
+
+Route::resource('addr','AddrController');                           //收货地址
+Route::POST('/addrLinkage','Home\AjaxController@addrLinkage');       //ajax地区联动
+Route::POST('/ajaxArea','Home\AjaxController@ajaxArea');        //ajax订单添加地址
+
+
+
 
 Route::get('/person','Home\PersonController@index');               //个人中心
 

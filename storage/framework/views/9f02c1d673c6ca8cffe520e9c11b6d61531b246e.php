@@ -14,12 +14,12 @@
     <div class="block-header">
         <div class="row">
             <div class="col-lg-7 col-md-6 col-sm-12">
-                <h2>会员列表</h2>
+                <h2>订单列表</h2>
             </div>
             <div class="col-lg-5 col-md-6 col-sm-12">
                 <ul class="breadcrumb float-md-right">
                     <li class="breadcrumb-item"><a href="<?php echo e(url('/admin')); ?>"><i class="zmdi zmdi-home"></i> 系统主页</a></li>
-                    <li class="breadcrumb-item active">会员列表</li>
+                    <li class="breadcrumb-item active">订单列表</li>
                 </ul>
             </div>
         </div>
@@ -30,46 +30,36 @@
             <div class="col-lg-12 col-md-12 col-sm-12">
                 <div class="card">
                     <div class="header">
-                        <h2><strong>User</strong> List</h2>
+                        <h2><strong>Order</strong> List</h2>
                         <ul class="header-dropdown">
                             <li class="dropdown">
-                                <a href="<?php echo e(url('/admin/user/create')); ?>"  class="badge badge-warning">添加会员</a>
+                                <a href="<?php echo e(url('/admin/orders/create')); ?>"  class="badge badge-warning">添加订单</a>
                             </li>
 
                         </ul>
                     </div>
                     <div class="body table-responsive">
-                        <table class="table table-striped m-b-0">
+
+                       <table class="table table-striped m-b-0">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
-                                    <th>用户名</th>
-                                    <th>用户租</th>
-                                    <th>邮箱</th>
-                                    <th>电话</th>
-                                    <th>注册时间</th>
+                                    <th>订单号</th>
+                                    <th>用户</th>
+                                    <th>创建时间</th>
                                     <th>状态</th>
                                     <th>操作</th>
                                 </tr>
                             </thead>
                                 <tbody>
+                                <?php $__currentLoopData = $orders; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $v): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <tr>
-                                    <?php $__currentLoopData = $user; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $v): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                    <td><?php echo e($v->id); ?></td>
+                                    <td><span class="badge badge-warning"><?php echo e($v->code); ?></span></td>
                                     <td><?php echo e($v->username); ?></td>
-                                    <th><?php echo e($v->aid); ?></th>
-                                    <th><?php echo e($v->email); ?></th>
-                                    <th><?php echo e($v->phone); ?></th>
                                     <td><?php echo e(date('Y-m-d H:i:s',$v->time)); ?></td>
+                                    <td> <span class="badge badge-primary"><?php echo e($v->name); ?></span></td>
                                     <td>
-                                        <?php if($v->status == 0): ?>
-                                        <span class="badge badge-success"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">开启</font></font></span></td>
-                                        <?php else: ?>
-                                        <span class="badge badge-primary"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">禁用</font></font></span>
-                                        <?php endif; ?>
-                                    <td>
-                                        <a href="<?php echo e(url('/admin/user/'.$v->id.'/edit')); ?>" class="badge badge-success">编辑</a>
-                                        <a href="javascript:;" id="del" onclick="delcCate(<?php echo e($v->id); ?>)" class="badge badge-danger">删除</a>
+                                        <a href="<?php echo e(url('admin/orders/details?code='.$v->code)); ?>" class="badge badge-success">订单详情</a>
+                                        <a href="<?php echo e(url('admin/orders/status/edit/'.$v->sid)); ?>"   class="badge badge-danger">修改状态</a>
                                     </td>
                                 </tr>
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -77,7 +67,7 @@
                             <tfoot>
                             <tr class="footable-paging">
                                 <td colspan="5">
-                                     <?php echo e($user->links()); ?>
+                                    <?php echo e($orders->links()); ?>
 
                                     <div class="divider"></div>
                                 </td>
@@ -91,18 +81,21 @@
     </div>
 </section>
 <script>
+
     function delcCate(id) {
         //询问框
-        layer.confirm('是否删除该会员？', {
+        layer.confirm('是否删除该订单？', {
             btn: ['确定', '取消'] //按钮
         }, function () {
-            $.post("<?php echo e(url('admin/user/')); ?>/" + id, {
+            $.post("<?php echo e(url('admin/orders/')); ?>/" + id, {
                 '_method': 'delete',
                 '_token': '<?php echo e(csrf_token()); ?>'
             }, function (data) {
                 if (data.status == 1) {
                     layer.msg(data.msg, {icon: 6});
-                    $("#del"+id).remove();
+                    setTimeout(function(){
+                        window.location.reload();//2秒后页面刷新
+                    },1000);
                 } else {
                     layer.msg(data.msg, {icon: 5});
                 }

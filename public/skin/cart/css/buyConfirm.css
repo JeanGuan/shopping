@@ -167,7 +167,7 @@ em {
 	vertical-align:middle
 }
 .payment-list li img {
-	margin-left:5px; width:140px;
+	margin-left:5px; 
 }
 .alipay-qrcode {
 	display:none;

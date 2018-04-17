@@ -45,7 +45,6 @@ class Goods extends Model
             $str .= $data['pid'].',';
             self::$pid = $data['pid'];
         }
-
         $input['path'] = ','.$str;
 
         //商品图片处理
@@ -119,6 +118,19 @@ class Goods extends Model
     //商品更新
     public function upd($id){
         $input = Input::except('_token','_method','show');
+
+        //商品分类层级path
+        $tid =  $input['tid'];
+        $data = Types::where("id",$tid)->first();
+        self::$pid = $tid;
+        $str = '';
+        for ($i=0;$i<=$data['level'];$i++){
+            $data = Types::where("id",self::$pid)->first();
+            $str .= $data['pid'].',';
+            self::$pid = $data['pid'];
+        }
+        $input['path'] = ','.$str;
+
         //商品组图数据处理
         if (isset($input['picarr'])){
             if(is_array($input['picarr']))

@@ -101,7 +101,9 @@
             }, function (data) {
                 if (data.status == 1) {
                     layer.msg(data.msg, {icon: 6});
-                    $("#del"+id).remove();
+                    setTimeout(function(){
+                        window.location.reload();//2秒后页面刷新
+                    },1000);
                 } else {
                     layer.msg(data.msg, {icon: 5});
                 }

@@ -1,7 +1,7 @@
 ﻿html,body{
     position: relative;
     width: 100%;
-    min-height: 950px;
+    min-height: 100%;
 }
 input[type="checkbox"]{
     display: none;
@@ -34,7 +34,7 @@ a:hover{
     min-width: 1200px;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 50px 0px 0px;
+    padding: 30px 0px 0px;
     min-height: 210px;
 }
 /*购物车头部*/

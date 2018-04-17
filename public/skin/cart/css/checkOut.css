@@ -83,7 +83,19 @@ em {
 .xm-address-list .item {
 	float:left;
 	_display:inline;
-	width:264px;
+	width:253px;
+	height:160px;
+	padding:15px 18px;
+	position:relative;
+	border:1px solid #dfdfdf;
+	margin:0 0 10px 10px;
+	cursor:pointer;
+	background:#fafafa
+}
+.xm-address-list .item2 {
+	float:left;
+	_display:inline;
+	width:253px;
 	height:160px;
 	padding:15px 18px;
 	position:relative;
@@ -406,14 +418,18 @@ em {
 	text-align:center
 }
 .checkout-goods-list .col-2 {
-	width:118px
+	width:350px
 }
 .checkout-goods-list .col-3 {
-	width:80px
+	width:100px
 }
 .checkout-goods-list .col-4 {
-	width:102px;
+	width:60px;
 	padding-right:30px;
+	text-align:right
+}
+.checkout-goods-list .col-5{
+	width:100px;
 	text-align:right
 }
 .checkout-goods-list dt {
@@ -428,7 +444,7 @@ em {
 	float:left
 }
 .checkout-goods-list dt .col-1 {
-	width:840px;
+	width:538px;
 	padding-left:20px
 }
 .checkout-goods-list dt .col-3 {
@@ -450,7 +466,7 @@ em {
 	*margin-top:10px
 }
 .checkout-goods-list .item .col-1 {
-	width:884px;
+	width:538px;
 	padding-left:20px;
 	*margin-top:0
 }
@@ -493,7 +509,8 @@ em {
 	text-decoration:underline
 }
 .checkout-goods-list .item .col-4 {
-	color:#ff4646
+	color:#ff4646;
+	text-align: center;
 }
 .checkout-count {
 	position:relative;
@@ -616,6 +633,11 @@ em {
 .checkout-count-extend {
 	float:left;
 	position:relative
+}
+.checkout-count-extend textarea{
+	margin: 0px;
+	width: 585px;
+	height: 116px;
 }
 .checkout-count-extend  h3{
 	font-size: 18px;

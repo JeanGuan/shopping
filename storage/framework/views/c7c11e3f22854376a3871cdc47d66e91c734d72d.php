@@ -407,13 +407,12 @@
         $.ajax({
             type : "POST",
             url:"/addCart",
-            data : {gid:'<?php echo e($good->id); ?>',_token:'<?php echo e(csrf_token()); ?>',num:num,price:price,attr:goods_spec_arr},
+            data : {gid:'<?php echo e($good->id); ?>',title:'<?php echo e($good->title); ?>',img:'<?php echo e($good->picurl); ?>',_token:'<?php echo e(csrf_token()); ?>',num:num,price:price,attr:goods_spec_arr},
             success: function(data){
-                alert(data.msg);
+              alert(data.msg);
             },
             error:function(data){
                 alert(data.msg);
-                //swal('error',JSON.stringify(data),'error');
             }
         })
     });

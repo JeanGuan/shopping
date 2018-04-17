@@ -433,13 +433,12 @@
         $.ajax({
             type : "POST",
             url:"/addCart",
-            data : {gid:'{{$good->id}}',_token:'{{csrf_token()}}',num:num,price:price,attr:goods_spec_arr},
+            data : {gid:'{{$good->id}}',title:'{{$good->title}}',img:'{{$good->picurl}}',_token:'{{csrf_token()}}',num:num,price:price,attr:goods_spec_arr},
             success: function(data){
-                alert(data.msg);
+              alert(data.msg);
             },
             error:function(data){
                 alert(data.msg);
-                //swal('error',JSON.stringify(data),'error');
             }
         })
     });
