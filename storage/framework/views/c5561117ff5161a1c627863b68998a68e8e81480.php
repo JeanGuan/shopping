@@ -9,17 +9,17 @@
 </head>
 <body>
 <!--top-->
-@include('home.public.top')
-<div class="now_positionm"> <span>当前位置：</span><a href="{{url('/')}}">首页></a><a href="{{url('/person')}}">个人中心</a> </div>
+<?php echo $__env->make('home.public.top', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+<div class="now_positionm"> <span>当前位置：</span><a href="<?php echo e(url('/')); ?>">首页></a><a href="<?php echo e(url('/person')); ?>">个人中心</a> </div>
 <!--centers-->
 <div class="centers_m">
     <!--清除浮动-->
     <div class="clear_sm"></div>
     <!--left-->
-@include('home.public.person_left')
+<?php echo $__env->make('home.public.person_left', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
     <!--right-->
     <div class="centers_mr">
-        <h1 class="welcom_tm">欢迎您， <font>{{$user->username}}</font>！您上次登录时间为 {{date('Y-m-d H:i',$user->time)}}</h1>
+        <h1 class="welcom_tm">欢迎您， <font><?php echo e($user->username); ?></font>！您上次登录时间为 <?php echo e(date('Y-m-d H:i',$user->time)); ?></h1>
         <!--一条开始-->
         <div class="public_m1">
             <!--left-->
@@ -86,25 +86,26 @@
             <!--照片和内容-->
             <div class="zp_nrm">
                 <!--left-->
-                @if($user->portrait !='')
-                <div class="zp_nrm_l"> <img src="{{$user->portrait}}"/> <a href="#">更换头像</a> </div>
-                @endif
+                <?php if($user->portrait !=''): ?>
+                <div class="zp_nrm_l"> <img src="<?php echo e($user->portrait); ?>"/> <a href="#">更换头像</a> </div>
+                <?php endif; ?>
                 <!--right-->
                 <div class="zp_nrm_r">
-                    <p><em>用户名：</em><i>{{$user->username}}</i></p>
+                    <p><em>用户名：</em><i><?php echo e($user->username); ?></i></p>
                     <p><em>邮箱：</em>
-                            @if($user->email !='')
-                                {{$user->email}}
-                            @else
+                            <?php if($user->email !=''): ?>
+                                <?php echo e($user->email); ?>
+
+                            <?php else: ?>
                             <i>未设置</i><a href="#">立即设置</a>
-                            @endif
+                            <?php endif; ?>
                     </p>
-                    <p><em>手机号：</em><i>{{$user->phone}}</i></p>
+                    <p><em>手机号：</em><i><?php echo e($user->phone); ?></i></p>
                     <p><em>性别：</em>
 
-                        <input type="radio" name="sex" class="sex_m" value="0" @if($user->sex == 0)checked @endif>
+                        <input type="radio" name="sex" class="sex_m" value="0" <?php if($user->sex == 0): ?>checked <?php endif; ?>>
                         <i>男</i>
-                        <input type="radio" name="sex" class="sex_m" value="1" @if($user->sex == 1)checked @endif>
+                        <input type="radio" name="sex" class="sex_m" value="1" <?php if($user->sex == 1): ?>checked <?php endif; ?>>
                         <i>女</i>
                     </p>
                     <a href="#" class="public_m3">保存修改</a> </div>
@@ -843,6 +844,6 @@
         </div>
     </div>
 </div>
-@include('home.public.footer')
+<?php echo $__env->make('home.public.footer', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 </body>
 </html>
