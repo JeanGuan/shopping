@@ -45,12 +45,15 @@ Route::POST('/addrLinkage','Home\AjaxController@addrLinkage');       //ajax地�
 Route::POST('/ajaxArea','Home\AjaxController@ajaxArea');        //ajax订单添加地址
 
 
+Route::group(['namespace'=>'Home','middleware'=>'homeLogin'],function() {
+
+    Route::get('/person','PersonController@index');                      //个人中心
+    Route::get('/person/info','PersonController@info');                 //个人资料
+    Route::get('/person/order','PersonController@order');               //个人订单
+    Route::post('/person/orderDetail','PersonController@orderDetail');    //个人订单详情
 
 
-Route::get('/person','Home\PersonController@index');               //个人中心
-
-
-
+});
 
 
 

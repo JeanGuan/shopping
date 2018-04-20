@@ -11,7 +11,7 @@
 		<?php endif; ?>
 		<span class="fr">客服电话：<span class="red">18346100046</span></span>
 		<a onClick="SetHome(window.location)" href="javascript:void(0)" class="fr">设为首页</a>
-		<a onclick="AddFavorite(window.location,document.title)" 
+		<a onclick="AddFavorite(window.location,document.title)"
 href="javascript:void(0)" class="fr">收藏本站</a>
 		<a href="#" class="fr">帮助中心</a>
 

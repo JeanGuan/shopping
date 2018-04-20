@@ -19,6 +19,7 @@ body{ background:#f6f6f6}
 .centers_listm_one{ width:170px; height:41px; background:#fa3b4a; border-radius:3px}
 .centers_listm_one img{display:block; width:30px; height:30px; float:left; margin-top:6px; margin-left:10px; margin-right:10px}
 .centers_listm_one em{display:block; float:left; font-size:18px; color:#fff; height:20px; line-height:20px; margin-top:11px}
+
 /*一条开始*/
 .gjszmdm{ display:block; height:auto; overflow:hidden; width:170px}
 .centers_listm_one_in{ width:170px; height:36px; overflow:hidden; margin-top:1px; background:#fff; cursor:pointer;}
@@ -221,3 +222,6 @@ z-index: 400;overflow: hidden;overflow-X: hidden;display: none;}
 .fenye_fhq{ width:100%;height:24px;overflow:hidden; text-align:center; margin-top:20px}
 .fenye_fhq a{ display:inline-block; height:20px; background:#fff; font-size:14px; padding-left:12px; padding-right:12px; border:1px solid #767676;color:#777777}
 .fenye_fhq a:hover{ background:#f08b09; color:#fff; border:1px solid #f08b09}
+/*订单详情弹窗*/
+.black_overlay{display: none;position: absolute;top: 0%;left: 0%;width: 100%;height: 100%;background-color: black;z-index:1001;-moz-opacity: 0.8;opacity:.80;filter: alpha(opacity=88);}
+.white_content {display: none;position: absolute;background-color: white;z-index:1002;overflow: auto;}
