@@ -9,6 +9,7 @@
 namespace App\Http\Controllers\Home;
 
 //个人中心控制器
+use App\Http\Model\Addr;
 use App\Http\Model\Cart;
 use App\Http\Model\Orders;
 use App\Http\Model\User;
@@ -47,9 +48,87 @@ class PersonController extends  CommonController
 
         $goods = Orders::where('id',$order_id)->first()->toArray();
         $goods['goodattr'] = unserialize($goods['goodattr']);
-        if ($goods){
-            return $goods;
+       // $goods = json_encode($goods);
+        return $goods;
+
+    }
+
+    //删除订单
+    public function delOrder(Request $request){
+        $id = $request->id;
+
+        $re = Orders::where('id',$id)->delete();
+        if ($re){
+            $data = [
+                'satus'=>1,
+                'msg'=>"订单删除成功！"
+            ];
+        }else{
+            $data = [
+                'satus'=>0,
+                'msg'=>"订单删除失败！"
+            ];
         }
+        return $data;
+
+    }
+
+    //取消订单
+    public function cancelOrder(Request $request){
+        $id = $request->id;
+        $status_id = $request->status_id;
+
+        //判断订单状态 是否需要退款 2已付款 3待发货
+        if ($status_id== 2 || $status_id == 3){
+
+        }
+
+        //更新订单状态 4已取消
+        $input = ['sid'=>4];
+        $re = Orders::where('id',$id)->update($input);
+        if ($re){
+            $data = [
+                'satus'=>1,
+                'msg'=>"订单取消成功！"
+            ];
+        }else{
+            $data = [
+                'satus'=>0,
+                'msg'=>"订单取消失败！"
+            ];
+        }
+        return $data;
+    }
+
+    //收货地址
+    public function addrList(){
+        $uid = session('Homeuserinfo.id');
+        $addrList = Addr::where('uid',$uid)->get();
+        return view('home.person.addrinfo',compact('addrList'));
+    }
+
+    //添加收货地址
+    public function createAddr(Request $request){
+        print_r($request->all());die();
+    }
+
+    //删除收货地址
+    public function delAddr(Request $request){
+        $id = $request->id;
+
+        $re = Addr::where('id',$id)->delete();
+        if ($re) {
+            $data = [
+                'status'=>1,
+                'msg'=>'地址删除成功！'
+            ];
+        }else{
+            $data = [
+                'status'=>0,
+                'msg'=>'地址删除失败！'
+            ];
+        }
+        return $data;
     }
 
 

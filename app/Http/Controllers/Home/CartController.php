@@ -26,8 +26,6 @@ class CartController extends CommonController
 
     //加入购物车
     public function addCart(Request $request){
-        //判断用户是否登录
-        if(session('Homeuserinfo.id')){
 
             //获取商品数据
             $input = $request->except('_token');
@@ -35,6 +33,9 @@ class CartController extends CommonController
 
             //商品规格数据处理
             $attr =explode(",", $input['attr']);
+
+            //商品小计
+            $subtotal = $input['price']*$input['num'];
 
             //获取商品规格title
             $attrs = Goods::where('id',$input['gid'])->select('attr')->first();
@@ -54,8 +55,10 @@ class CartController extends CommonController
             $good = Cart::where(['attr'=>$str,'gid'=>$input['gid'],'uid'=>$input['uid']])->first();
              if ($good){
                  $input['num'] = $good['num'] + $input['num'];
+                 $input['subtotal'] = $subtotal + $good['subtotal'];
                  $goodsCart = Cart::where(['attr'=>$str,'gid'=>$input['gid'],'uid'=>$input['uid']])->update($input);
              }else{
+                 $input['subtotal'] = $subtotal;
                  $goodsCart = Cart::create($input);
             }
 
@@ -71,13 +74,7 @@ class CartController extends CommonController
                 ];
             }
             return $data;
-        }else{
-            $data = [
-                'status'=>0,
-                'msg'=>'请登录后添加商品！'
-            ];
-            return $data;
-        }
+
     }
 
     //移除购物车商品

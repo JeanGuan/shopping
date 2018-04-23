@@ -49,8 +49,16 @@ Route::group(['namespace'=>'Home','middleware'=>'homeLogin'],function() {
 
     Route::get('/person','PersonController@index');                      //个人中心
     Route::get('/person/info','PersonController@info');                 //个人资料
+
     Route::get('/person/order','PersonController@order');               //个人订单
     Route::post('/person/orderDetail','PersonController@orderDetail');    //个人订单详情
+    Route::post('/person/delOrder','PersonController@delOrder');         //个人订单删除
+    Route::post('/person/cancelOrder','PersonController@cancelOrder');    //个人订单取消
+
+    Route::get('/person/addrList','PersonController@addrList');    //个人地址
+    Route::post('/person/delAddr','PersonController@delAddr');    //个人删除
+    Route::post('/person/createAddr','PersonController@createAddr');    //个人地址添加
+
 
 
 });

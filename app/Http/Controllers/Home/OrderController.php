@@ -33,11 +33,12 @@ class OrderController extends CommonController
         foreach ($car_id as $k=>$v) {
             if ($v != ''){
                 $cartGoods[]= Cart::where('id', $v)->orderBy('id','desc')->first();
-                $total_price = Cart::where('id',$v)->select('price')->first();
-                $total_price_sum +=$total_price['price'];   //商品总价格
+                $subtotal = Cart::where('id',$v)->select('subtotal')->first();
+                $total_price_sum +=$subtotal['subtotal'];   //商品总价格
             }
 
         }
+
         //获取收货人地址
         $id = session('Homeuserinfo.id');
         $addr = (new Addr())->selAddr($id);
