@@ -2012,7 +2012,7 @@ SVGElement.prototype = {
 			doc.createElementNS(SVG_NS, nodeName);
 		wrapper.renderer = renderer;
 		/**
-		 * A collection of attribute setters. These methods, if defined, are called right before a certain
+		 * A collect of attribute setters. These methods, if defined, are called right before a certain
 		 * attribute is set on an element wrapper. Returning false prevents the default attribute
 		 * setter to run. Returning a value causes the default setter to set that value. Used in
 		 * Renderer.label.
@@ -3796,7 +3796,7 @@ SVGRenderer.prototype = {
 	},
 
 	/**
-	 * An extendable collection of functions for defining symbol paths.
+	 * An extendable collect of functions for defining symbol paths.
 	 */
 	symbols: {
 		'circle': function (x, y, w, h) {
@@ -7652,7 +7652,7 @@ Axis.prototype = {
 	},
 	
 	/**
-	 * Set the max ticks of either the x and y axis collection
+	 * Set the max ticks of either the x and y axis collect
 	 */
 	setMaxTicks: function () {
 		
@@ -14171,7 +14171,7 @@ Series.prototype = {
 			}
 
 			// a specific marker config object is defined for the individual point:
-			// create it's own attribute collection
+			// create it's own attribute collect
 			if (hasPointSpecificOptions) {
 				normalOptions = normalOptions || {};
 				pointAttr = [];
@@ -14211,7 +14211,7 @@ Series.prototype = {
 
 
 			// no marker config object is created: copy a reference to the series-wide
-			// attribute collection
+			// attribute collect
 			} else {
 				pointAttr = seriesPointAttr;
 			}

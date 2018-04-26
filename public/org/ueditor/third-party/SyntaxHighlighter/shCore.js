@@ -1658,7 +1658,7 @@ if (typeof(SyntaxHighlighter) == 'undefined') var SyntaxHighlighter = function()
      * matches that are found.
      *
      * @param {String} code    Code to execute regular expression on.
-     * @param {Object} regex   Regular expression item info from <code>regexList</code> collection.
+     * @param {Object} regex   Regular expression item info from <code>regexList</code> collect.
      * @return {Array}         Returns a list of Match objects.
      */
     function getMatches(code, regexInfo)

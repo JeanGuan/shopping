@@ -50,8 +50,19 @@
 		<!-- 缩略图end -->	
 		<div class="detail_chare">
 			<a href="" class="fl"><img src="/skin/images/d25.png" alt="" />分享</a>
-			<a href="" class="fl"><img src="/skin/images/d26.png" alt="" />收藏商品</a>			
-		</div>
+			<?php if(session('Homeuserinfo.id')): ?>
+
+
+					<?php if($good->state == 0): ?>
+					<a href="javascript:void(0);" onclick="collection(<?php echo e($good->id); ?>,0,<?php echo e(session('Homeuserinfo.id')); ?>)" class="fl"><img src="/skin/images/d26.png" alt="" />收藏商品
+					<?php else: ?>
+					<a href="javascript:void(0);" onclick="collection(<?php echo e($good->id); ?>,<?php echo e($good->state); ?>,<?php echo e(session('Homeuserinfo.id')); ?>)" class="fl"><img src="/skin/images/d29.png" alt="" />已收藏
+					<?php endif; ?>
+				</a>
+			<?php else: ?>
+				<a href="javascript:void(0);" onclick="collection()" class="fl"><img src="/skin/images/d26.png" alt="" />收藏商品</a>
+			<?php endif; ?>
+			</div>
 	</div>
 	<div class="fl detail_con">
 		<div class="detail_tit f16"> <?php echo e($good->title); ?></div>
@@ -343,6 +354,26 @@
 
 
 <script type="text/javascript">
+	//商品收藏
+	function collection(gid,state,uid) {
+		if (uid == null){
+		    alert('请登录后收藏商品！')
+		}else{
+		    $.ajax({
+				type:'post',
+				url:'/goods/ajaxCollection',
+				data:{gid:gid,state:state,uid:uid,_token:'<?php echo e(csrf_token()); ?>'},
+				success:function (data) {
+					alert(data.msg);
+					window.location.reload();
+                },
+				error:function (data) {
+                    alert(data.msg);
+                }
+			})
+		}
+    }
+	
 	//商品数量
     function modifyNum(o){
         if(isNaN($(o).val())){

@@ -10,8 +10,9 @@ namespace App\Http\Controllers\Home;
 
 //个人中心控制器
 use App\Http\Model\Addr;
-use App\Http\Model\Cart;
+use App\Http\Model\Collect;
 use App\Http\Model\Orders;
+use App\Http\Model\Province;
 use App\Http\Model\User;
 use Illuminate\Http\Request;
 
@@ -103,13 +104,39 @@ class PersonController extends  CommonController
     //收货地址
     public function addrList(){
         $uid = session('Homeuserinfo.id');
-        $addrList = Addr::where('uid',$uid)->get();
-        return view('home.person.addrinfo',compact('addrList'));
+        $addrList = Addr::where('uid',$uid)->orderBy('id','asc')->get();
+
+        //三级联动省级
+        $province = Province::orderBY('id','asc')->get();
+
+        return view('home.person.addrinfo',compact('addrList','province'));
     }
 
     //添加收货地址
     public function createAddr(Request $request){
-        print_r($request->all());die();
+        $input = $request->except('_token');
+        $input['uid'] =session('Homeuserinfo.id');
+
+        //获取地址编码中文
+        $area = (new Addr())->addrCode_cn($input['province'],$input['city'],$input['county']);
+
+        $input['prov_cn'] = $area['province'];
+        $input['city_cn'] = $area['city'];
+        $input['coun_cn'] = $area['county'];
+
+        $re = Addr::create($input);
+        if ($re){
+            $data = [
+                'status'=>1,
+                'msg'=>'地址添加成功！'
+            ];
+        }else{
+            $data = [
+                'status'=>0,
+                'msg'=>'地址添加失败！'
+            ];
+        }
+        return $data;
     }
 
     //删除收货地址
@@ -129,6 +156,21 @@ class PersonController extends  CommonController
             ];
         }
         return $data;
+    }
+
+
+    //商品详情收藏商品
+    public function collection(){
+        $uid = session('Homeuserinfo');
+        $goods = Collect::select('collection.*','goods.picurl','goods.title')
+            ->join('goods','collection.gid','=','goods.id')
+            ->where('uid',$uid)->get();
+        return view('home.person.collection',compact('goods'));
+    }
+
+    //个人中心删除收藏
+    public function delcollection(Request $request){
+        print_r($request->all());die();
     }
 
 

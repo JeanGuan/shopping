@@ -171,7 +171,7 @@ body{ background:#f6f6f6}
 .thisis_m ul{width:888px;height:196px;overflow:hidden}
 .thisis_m ul li{ width:135px;height:196px; float:left;overflow:hidden; margin-right:15px}
 .thisis_m ul li img{display:block; width:135px;height:133px}
-.thisis_m ul li h5{display:block;height:22px;line-height:22px;font-size:14px;color:#333; width:135px; font-weight:100}
+.thisis_m ul li h5{display:block;height:22px;line-height:22px;font-size:14px;color:#333; width:135px; font-weight:100; overflow: hidden;white-space: nowrap;text-overflow: ellipsis;}
 .thisis_m ul li span{display:block;width:135px;height:17px;line-height:17px;font-size:12px;color:#333;overflow:hidden}
 .thisis_m ul li span i{color:#fa3b4a; font-style:normal}
 .thisis_m ul li p{display:block; width:135px;height:20px;overflow:hidden; font-size:12px;color:#333; line-height:20px}
@@ -198,10 +198,9 @@ body{ background:#f6f6f6}
 .rensw_bejm{width:888px;height:auto;overflow:hidden}
 .rensw_bejm ul{width:888px;height:auto;overflow:hidden}
 .rensw_bejm ul li{ width:165px; height:220px;float:left; margin-right:15px; margin-bottom:15px; overflow:hidden; transition:0.4s}
-.rensw_bejm ul li:hover{ transform:scale(1.1)}
 .rensw_bejm ul li:nth-child(5n){ margin-right:0}
 .rensw_bejm ul li img{display:block; width:165px;height:157px}
-.rensw_bejm ul li h5{display:block;height:22px;line-height:22px;font-size:14px;color:#333; width:165px; font-weight:100}
+.rensw_bejm ul li h5{display:block;height:22px;line-height:22px;font-size:14px;color:#333; width:165px; font-weight:100;overflow: hidden; white-space: nowrap;display: block; text-overflow: ellipsis;}
 .rensw_bejm ul li h5:hover{color:#fa3b4a}
 .rensw_bejm ul li span{display:block;width:165px;height:17px;line-height:17px;font-size:12px;color:#333;overflow:hidden}
 .rensw_bejm ul li span i{color:#fa3b4a; font-style:normal}

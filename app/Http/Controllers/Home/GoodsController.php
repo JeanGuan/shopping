@@ -9,6 +9,7 @@
 namespace App\Http\Controllers\Home;
 
 //商品详情控制器
+use App\Http\Model\Collect;
 use App\Http\Model\Comment;
 use App\Http\Model\Goods;
 use App\Http\Model\User;
@@ -31,11 +32,27 @@ class GoodsController extends CommonController
         $goodattr  = json_encode($goodattr);
         $pic = unserialize($good['picarr']);               //图片路径
 
+        //商品收藏 状态
+        if (session('Homeuserinfo.id')){
+            $uid = session('Homeuserinfo.id');
+            $re = Collect::where(['gid'=>$id,'uid'=>$uid])->first();
+            if ($re){
+                $good['state'] = 1;
+            }else{
+                $good['state'] = 0;
+            }
+        }else{
+            $good['state'] = 0;
+        }
+
+
         //商品评论
         $commentTot = Comment::where('gid',$id)->count();   //评论数
         $goodTot = Comment::where('start','>=',4)->where('gid',$id)->count();      //好评数
         $chaTot = Comment::where('start','<=',2)->where('gid',$id)->count();      //差评数
         $zhongTot = $commentTot - $goodTot - $chaTot;    //中评数
+
+
 
         //加载页面
         return view('home.goods',compact('types','good','pic','goodattr','attr','commentTot','chaTot','goodTot','zhongTot'));

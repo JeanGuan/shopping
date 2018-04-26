@@ -432,7 +432,7 @@ var GMaps = (function(global) {
      *
      * @param {object} options - The `options` object should contain:
      * * `control` (string): Kind of control the context menu will be attached. Can be "map" or "marker".
-     * * `options` (array): A collection of context menu items:
+     * * `options` (array): A collect of context menu items:
      *   * `title` (string): Item's title shown in the context menu.
      *   * `name` (string): Item's identifier.
      *   * `action` (function): Function triggered after selecting the context menu item.

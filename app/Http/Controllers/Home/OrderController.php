@@ -17,12 +17,6 @@ use Illuminate\Http\Request;
 
 class OrderController extends CommonController
 {
-    public function __construct(){
-        if (!session('Homeuserinfo.id')){
-            return view('home/login');
-        }
-
-    }
 
     //订单
     public function index(Request $request){
@@ -45,7 +39,6 @@ class OrderController extends CommonController
 
         //三级联动省级
         $province = Province::orderBY('id','asc')->get();
-
 
 
         $addr_default =(new Addr())->addr_default();

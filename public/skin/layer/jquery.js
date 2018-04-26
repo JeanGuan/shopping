@@ -1986,7 +1986,7 @@ Expr = Sizzle.selectors = {
 				( (attr = elem.getAttribute("type")) == null || attr.toLowerCase() === "text" );
 		},
 
-		// Position-in-collection
+		// Position-in-collect
 		"first": createPositionalPseudo(function() {
 			return [ 0 ];
 		}),
@@ -3165,7 +3165,7 @@ jQuery.Callbacks = function( options ) {
 		},
 		// Actual Callbacks object
 		self = {
-			// Add a callback or a collection of callbacks to the list
+			// Add a callback or a collect of callbacks to the list
 			add: function() {
 				if ( list ) {
 					// First, we save the current length
@@ -4129,7 +4129,7 @@ var isHidden = function( elem, el ) {
 
 
 
-// Multifunctional method to get and set values of a collection
+// Multifunctional method to get and set values of a collect
 // The value/s can optionally be executed if it's a function
 var access = jQuery.access = function( elems, fn, key, value, chainable, emptyGet, raw ) {
 	var i = 0,
@@ -8981,7 +8981,7 @@ jQuery.extend({
 			s = jQuery.ajaxSetup( {}, options ),
 			// Callbacks context
 			callbackContext = s.context || s,
-			// Context for global events is callbackContext if it is a DOM node or jQuery collection
+			// Context for global events is callbackContext if it is a DOM node or jQuery collect
 			globalEventContext = s.context && ( callbackContext.nodeType || callbackContext.jquery ) ?
 				jQuery( callbackContext ) :
 				jQuery.event,
@@ -9242,7 +9242,7 @@ jQuery.extend({
 				clearTimeout( timeoutTimer );
 			}
 
-			// Dereference transport for early garbage collection
+			// Dereference transport for early garbage collect
 			// (no matter how long the jqXHR object will be used)
 			transport = undefined;
 

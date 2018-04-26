@@ -41,13 +41,12 @@
             <!--一条开始-->
             <div class="centers_listm_one_in"> <img src="/skin/person/picture/wdssc.png"/> <em>收藏管理</em> <b></b> </div>
             <span class="gjszmdm">
-                <a href="#" class="center_in_self"><font>商品收藏</font></a>
+                <a href="<?php echo e(url('/person/collection')); ?>" class="center_in_self"><font>商品收藏</font></a>
             </span>
             <!--一条开始-->
             <div class="centers_listm_one_in"> <img src="/skin/person/picture/myfridend.png"/> <em>地址管理</em> <b></b> </div>
             <span class="gjszmdm">
                 <a href="<?php echo e(url('/person/addrList')); ?>" class="center_in_self"><font>我的地址</font></a>
-                <a href="<?php echo e(url('/person/addrinfo')); ?>" class="center_in_self"><font>添加地址</font></a>
             </span>
         </div>
         <script type="text/javascript">

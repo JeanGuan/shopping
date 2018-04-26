@@ -12,6 +12,7 @@ namespace App\Http\Controllers\Home;
 use App\Http\Model\Addr;
 use App\Http\Model\Cart;
 use App\Http\Model\City;
+use App\Http\Model\Collect;
 use App\Http\Model\Comment;
 use App\Http\Model\County;
 use App\Http\Model\Goods;
@@ -67,6 +68,37 @@ class AjaxController extends CommonController
         }
         return $data;
     }
+
+
+    //ajax商品收藏
+    public function ajaxCollection(Request $request){
+        $input = $request->except('_token');
+
+        if ($input['state'] == 1){
+            $re = Collect::where(['gid'=>$input['gid'],'uid'=>$input['uid']])->delete();
+            $msg ="商品已取消收藏" ;
+        }else{
+            unset($input['state']);
+            $re = Collect::create($input);
+            $msg ="商品收藏成功！" ;
+        }
+
+        if ($re){
+            $data = [
+                'status' =>1,
+                'msg'=>$msg
+            ];
+        }else{
+            $data = [
+                'status' =>0,
+                'msg'=>'error！'
+            ];
+        }
+
+        return $data;
+
+    }
+
 
     //ajax获取商品评论
     public function ajaxComment(Request $request){

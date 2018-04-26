@@ -175,7 +175,7 @@ layui.define(function(exports){
   }
 
   // `$.zepto.isZ` should return `true` if the given object is a Zepto
-  // collection. This method can be overridden in plugins.
+  // collect. This method can be overridden in plugins.
   zepto.isZ = function(object) {
     return object instanceof zepto.Z
   }
@@ -186,7 +186,7 @@ layui.define(function(exports){
   // This method can be overridden in plugins.
   zepto.init = function(selector, context) {
     var dom
-    // If nothing given, return an empty Zepto collection
+    // If nothing given, return an empty Zepto collect
     if (!selector) return zepto.Z()
     // Optimize for string selectors
     else if (typeof selector == 'string') {
@@ -196,7 +196,7 @@ layui.define(function(exports){
       // is thrown if the fragment doesn't begin with <
       if (selector[0] == '<' && fragmentRE.test(selector))
         dom = zepto.fragment(selector, RegExp.$1, context), selector = null
-      // If there's a context, create a collection on that context first, and select
+      // If there's a context, create a collect on that context first, and select
       // nodes from there
       else if (context !== undefined) return $(context).find(selector)
       // If it's a CSS selector, use it to select nodes.
@@ -204,7 +204,7 @@ layui.define(function(exports){
     }
     // If a function is given, call it when the DOM is ready
     else if (isFunction(selector)) return $(document).ready(selector)
-    // If a Zepto collection is given, just return it
+    // If a Zepto collect is given, just return it
     else if (zepto.isZ(selector)) return selector
     else {
       // normalize array if an array of nodes is given
@@ -215,13 +215,13 @@ layui.define(function(exports){
       // If it's a html fragment, create nodes from it
       else if (fragmentRE.test(selector))
         dom = zepto.fragment(selector.trim(), RegExp.$1, context), selector = null
-      // If there's a context, create a collection on that context first, and select
+      // If there's a context, create a collect on that context first, and select
       // nodes from there
       else if (context !== undefined) return $(context).find(selector)
       // And last but no least, if it's a CSS selector, use it to select nodes.
       else dom = zepto.qsa(document, selector)
     }
-    // create a new Zepto collection from the nodes found
+    // create a new Zepto collect from the nodes found
     return zepto.Z(dom, selector)
   }
 
@@ -410,7 +410,7 @@ layui.define(function(exports){
     constructor: zepto.Z,
     length: 0,
 
-    // Because a collection acts like an array
+    // Because a collect acts like an array
     // copy over these useful array functions.
     forEach: emptyArray.forEach,
     reduce: emptyArray.reduce,
@@ -1164,7 +1164,7 @@ layui.define(function(exports){
     return this.each(function(){
       // handle focus(), blur() by calling them directly
       if (event.type in focus && typeof this[event.type] == "function") this[event.type]()
-      // items in the collection might not be DOM elements
+      // items in the collect might not be DOM elements
       else if ('dispatchEvent' in this) this.dispatchEvent(event)
       else $(this).triggerHandler(event, args)
     })

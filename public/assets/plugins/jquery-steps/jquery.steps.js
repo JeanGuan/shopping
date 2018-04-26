@@ -1104,7 +1104,7 @@ function renderTemplate(template, substitutes)
 
         if (substitutes[key] === undefined)
         {
-            throwError("The key '{0}' does not exist in the substitute collection!", key);
+            throwError("The key '{0}' does not exist in the substitute collect!", key);
         }
 
         template = template.replace(match, substitutes[key]);

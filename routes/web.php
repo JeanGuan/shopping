@@ -28,38 +28,40 @@ Route::get('/Checkcode','Home\AjaxController@Checkcode');           //验证码�
 
 Route::get('/types/{id}','Home\TypesController@index');             //商品分类
 Route::get('/goods/{id}','Home\GoodsController@index');             //商品详情
-Route::POST('/goods/ajaxComment','Home\AjaxController@ajaxComment');       //商品详情评论
-
-Route::get('/cart','Home\CartController@index');                        //购物车
-Route::post('/addCart','Home\CartController@addCart');                   //加入购物车
-Route::post('/addCart/stock','Home\AjaxController@ajaxStock');           //更新商品数量
-Route::post('/addCart/delCart','Home\CartController@delCart');           //移除购物车
-
-Route::get('/order','Home\OrderController@index');                       //订单
-Route::post('/order/addOrder','Home\OrderController@addOrder');           //订单提交
-Route::get('/pay','Home\PayController@index');                            //订单支付
-
-
-Route::resource('addr','AddrController');                           //收货地址
-Route::POST('/addrLinkage','Home\AjaxController@addrLinkage');       //ajax地区联动
-Route::POST('/ajaxArea','Home\AjaxController@ajaxArea');        //ajax订单添加地址
+Route::POST('/goods/ajaxCollection','Home\AjaxController@ajaxCollection');       //商品收藏
+Route::POST('/goods/ajaxComment','Home\AjaxController@ajaxComment');            //商品详情评论
 
 
 Route::group(['namespace'=>'Home','middleware'=>'homeLogin'],function() {
 
-    Route::get('/person','PersonController@index');                      //个人中心
-    Route::get('/person/info','PersonController@info');                 //个人资料
+    Route::get('/cart','CartController@index');                         //购物车
+    Route::post('/addCart','CartController@addCart');                   //加入购物车
+    Route::post('/addCart/stock','AjaxController@ajaxStock');           //更新商品数量
+    Route::post('/addCart/delCart','CartController@delCart');           //移除购物车
 
-    Route::get('/person/order','PersonController@order');               //个人订单
-    Route::post('/person/orderDetail','PersonController@orderDetail');    //个人订单详情
-    Route::post('/person/delOrder','PersonController@delOrder');         //个人订单删除
-    Route::post('/person/cancelOrder','PersonController@cancelOrder');    //个人订单取消
-
-    Route::get('/person/addrList','PersonController@addrList');    //个人地址
-    Route::post('/person/delAddr','PersonController@delAddr');    //个人删除
-    Route::post('/person/createAddr','PersonController@createAddr');    //个人地址添加
+    Route::get('/order','OrderController@index');                        //订单
+    Route::post('/order/addOrder','OrderController@addOrder');           //订单提交
+    Route::get('/pay','PayController@index');                            //订单支付
 
 
+    Route::resource('addr','AddrController');                           //收货地址
+    Route::POST('/addrLinkage','AjaxController@addrLinkage');           //ajax地区联动
+    Route::POST('/ajaxArea','AjaxController@ajaxArea');                 //ajax订单添加地址
+
+
+    Route::get('/person','PersonController@index');                         //个人中心
+    Route::get('/person/info','PersonController@info');                     //个人资料
+
+    Route::get('/person/order','PersonController@order');                   //个人订单
+    Route::post('/person/orderDetail','PersonController@orderDetail');      //个人订单详情
+    Route::post('/person/delOrder','PersonController@delOrder');            //个人订单删除
+    Route::post('/person/cancelOrder','PersonController@cancelOrder');      //个人订单取消
+
+    Route::get('/person/addrList','PersonController@addrList');             //个人地址
+    Route::post('/person/delAddr','PersonController@delAddr');              //个人地址删除
+    Route::post('/person/createAddr','PersonController@createAddr');        //个人地址添加
+    Route::get('/person/collection','PersonController@collection');         //个人收藏商品
+    Route::post('/person/delcollection','PersonController@delcollection');   //个人收藏商品删除
 
 });
 
@@ -80,9 +82,9 @@ Route::group(['namespace'=>'Admin','prefix'=>'admin','middleware'=>'adminLogin']
     Route::resource('user','UserController');                       //用户
     Route::resource('usertypes','UsertypesController');             //用户组
 
-    Route::resource('article','ArticleController');                      //文章
-    Route::resource('arctype','ArctypeController');                      //文章分类
-    Route::post('arctype/changeOrder', 'ArctypeController@changeOrder');   //文章分类排序
+    Route::resource('article','ArticleController');                           //文章
+    Route::resource('arctype','ArctypeController');                           //文章分类
+    Route::post('arctype/changeOrder', 'ArctypeController@changeOrder');      //文章分类排序
 
 
     Route::resource('goods','GoodsController');                        //商品
@@ -90,14 +92,14 @@ Route::group(['namespace'=>'Admin','prefix'=>'admin','middleware'=>'adminLogin']
     Route::post('types/changeOrder', 'TypesController@changeOrder');   //商品分类排序
     Route::resource('brand','BrandController');                        //商品品牌
     Route::get('comment','CommentController@index');                   //商品评论
-    Route::post('comment/status','CommentController@status');           //商品评论状态
+    Route::post('comment/status','CommentController@status');          //商品评论状态
 
 
-    Route::get('orders','OrdersController@index');                             //订单
-    Route::get('orders/details','OrdersController@details');                  //订单详情
-    Route::get('orders/status/edit/{sid}','OrdersController@statusEdit');          //订单状态编辑
+    Route::get('orders','OrdersController@index');                                     //订单
+    Route::get('orders/details','OrdersController@details');                           //订单详情
+    Route::get('orders/status/edit/{sid}','OrdersController@statusEdit');              //订单状态编辑
     Route::post('orders/status/update/{id}','OrdersController@statusUpdate');          //订单状态更新
-    Route::get('orders/status','OrdersController@statusList');          //订单状态管理
+    Route::get('orders/status','OrdersController@statusList');                         //订单状态管理
 
 
     Route::resource('slider','SliderController');                           //轮播图
