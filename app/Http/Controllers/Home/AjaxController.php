@@ -75,8 +75,15 @@ class AjaxController extends CommonController
         $input = $request->except('_token');
 
         if ($input['state'] == 1){
-            $re = Collect::where(['gid'=>$input['gid'],'uid'=>$input['uid']])->delete();
-            $msg ="商品已取消收藏" ;
+            $data = Collect::where(['gid'=>$input['gid'],'uid'=>$input['uid']])->first();
+            if ($data){
+                $re = Collect::where(['gid'=>$input['gid'],'uid'=>$input['uid']])->delete();
+                $msg ="商品已取消收藏" ;
+            }else{
+                unset($input['state']);
+                $re = Collect::create($input);
+                $msg ="商品收藏成功！" ;
+            }
         }else{
             unset($input['state']);
             $re = Collect::create($input);

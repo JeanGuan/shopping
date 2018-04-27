@@ -170,8 +170,23 @@ class PersonController extends  CommonController
 
     //个人中心删除收藏
     public function delcollection(Request $request){
-        print_r($request->all());die();
+        $gid =$request->gid;
+        $uid = session('Homeuserinfo.id');
+        foreach ($gid as $v){
+            $re = Collect::where(['gid'=>$v,'uid'=>$uid])->delete();
+        }
+        if ($re){
+            $data = [
+                'status'=>1,
+                'msg'=>'取消收藏成功！'
+            ];
+        }else{
+            $data = [
+                'status'=>1,
+                'msg'=>'取消收藏失败！'
+            ];
+        }
+        return $data;
     }
-
 
 }

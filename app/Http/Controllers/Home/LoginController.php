@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Crypt;
 
 class LoginController extends CommonController
 {
+
     //用户登录
     public function index(Request $request){
 

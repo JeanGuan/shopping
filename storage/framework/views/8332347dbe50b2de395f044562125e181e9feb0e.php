@@ -30,23 +30,29 @@
         
         //删除收藏商品
         function delCollect() {
-            var checkboxValue;
-            var gid = $("input[name='gid']:checked").each(function(j) {
-                if (j >= 0) {
-                    checkboxValue += $(this).val() + ",";
+            obj = document.getElementsByName("gid");
+            var check_val = [];
+            for (k in obj) {
+                if (obj[k].checked) {
+                    check_val.push(obj[k].value);
                 }
-            });
-            $.ajax({
-                type:'post',
-                url:'/person/delcollection',
-                date:{gid:gid,_token:'<?php echo e(csrf_token()); ?>'},
-                success:function (data) {
-                    alert(data.msg)
-                },
-                error:function (data) {
-                    alert(data.msg)
-                }
-            })
+            }
+            if(check_val.length === 0){
+                alert('未选中任何商品!');
+            }else{
+                $.ajax({
+                    type:'post',
+                    url:'/person/delcollection',
+                    data:{gid:check_val,_token:'<?php echo e(csrf_token()); ?>'},
+                    success:function (data) {
+                        alert(data.msg);
+                        window.location.reload();
+                    },
+                    error:function (data) {
+                        alert(data.msg)
+                    }
+                })
+            }
         }
     </script>
 <?php $__env->stopSection(); ?>
